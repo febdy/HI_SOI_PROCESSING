@@ -1,19 +1,27 @@
-import socketserver
-
+import socket
 from flask import Flask
 
 app = Flask(__name__)
 
 
-class MyTCPHandler(socketserver.BaseRequestHandler):
-    def handle(self):
-        self.data = self.request.recv(1024).strip()
-        print("{} wrote:".format(self.client_address[0]))
-        print("!!!!!!!!!!!", self.data)
-        self.request.sendall(self.data.upper())
+HOST = "localhost"
+PORT = 9999
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print('Socket created')
+
+try:
+    s.bind((HOST, PORT))
+except socket.error as err:
+    print('Bind failed. Error Code : ' .format(err))
+
+s.listen(5)
+print("Socket Listening")
+conn, addr = s.accept()
 
 
-if __name__ == "__main__":
-    HOST, PORT = "localhost", 9999
-    server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
-    server.serve_forever()
+# while True:
+#     conn.send(bytes("Message"+"\r\n", 'UTF-8'))
+#     print("Message sent")
+#
+#    data = conn.recv(1024)
+#    print(data.decode(encoding='UTF-8'))
