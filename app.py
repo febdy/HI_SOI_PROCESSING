@@ -3,7 +3,6 @@ from flask import Flask
 
 app = Flask(__name__)
 
-
 HOST = "localhost"
 PORT = 9999
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -12,12 +11,11 @@ print('Socket created')
 try:
     s.bind((HOST, PORT))
 except socket.error as err:
-    print('Bind failed. Error Code : ' .format(err))
+    print('Bind failed. Error Code : '.format(err))
 
 s.listen(5)
 print("Socket Listening")
 conn, addr = s.accept()
-
 
 # while True:
 #     conn.send(bytes("Message"+"\r\n", 'UTF-8'))
