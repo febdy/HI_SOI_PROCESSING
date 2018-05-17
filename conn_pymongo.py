@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import datetime
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client['hi_soi']
@@ -7,12 +8,13 @@ db = client['hi_soi']
 # pprint.pprint(db.startup_log.find_one())
 
 
-def insert_correct_result(video_info, cnt):
+def insert_correct_result(video_info, face_move_cnt):
     collection = db['correction_result']
 
     result = {"user_id": video_info["userId"],
               "video_save_name": video_info["videoSaveName"],
-              "cnt": cnt}
+              "face_move_cnt": face_move_cnt,
+              "date": datetime.datetime.now()}
 
     collection.insert_one(result)
     print("Insert correction result to MongoDB success.")

@@ -70,93 +70,100 @@ def mask_array(array, imask):
 def do_correction(video_info):
     video = cv2.VideoCapture(video_info["videoPath"])
     is_face = -1
-    cnt = 0
+    face_move_cnt = 0
     chk_move = 0
 
-    while True:
-        ret, frame = video.read()
+    try:
+        while True:
+            ret, frame = video.read()
 
-        frame = rotate(frame, 90)
+            frame = rotate(frame, 90)
 
-        if ret:
-            frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            if ret:
+                frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-            face_rects = face_cascade.detectMultiScale(gray, 1.3, 5)
+                face_rects = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-#            print('cnt:', cnt)
+    #            print('face_move_cnt:', face_move_cnt)
 
-            if is_face is -1:  # 얼굴이 잡히지 않았을 때
-                for (x, y, w, h) in face_rects:
-                    # print("얼굴안잡는중")
-                    face_rect = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                if is_face is -1:  # 얼굴이 잡히지 않았을 때
+                    for (x, y, w, h) in face_rects:
+                        # print("얼굴안잡는중")
+                        face_rect = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
-                    img = cv2.resize(face_rect, (28, 28))
-                    img = img.astype("float") / 255.0
-                    img = img_to_array(img)
-                    img = np.expand_dims(img, axis=0)
+                        img = cv2.resize(face_rect, (28, 28))
+                        img = img.astype("float") / 255.0
+                        img = img_to_array(img)
+                        img = np.expand_dims(img, axis=0)
 
-                    (not_face, face) = model.predict(img)[0]
+                        (not_face, face) = model.predict(img)[0]
 
-                    label = "face" if face > not_face else "Not face"
+                        label = "face" if face > not_face else "Not face"
 
-                    if label == "face":
-                        bg = frame.copy()
-                        bbox = (x, y, w, h)
-                        def_x = x  # 움직임 계산할 때 기준이 되는 x, y
-                        def_y = y
-                        is_face = 1
-                        tracker = setup_tracker(2)
-                        tracking = tracker.init(frame, bbox)
+                        if label == "face":
+                            bg = frame.copy()
+                            bbox = (x, y, w, h)
+                            def_x = x  # 움직임 계산할 때 기준이 되는 x, y
+                            def_y = y
+                            is_face = 1
+                            tracker = setup_tracker(2)
+                            tracking = tracker.init(frame, bbox)
 
-            elif is_face is 1:  # 얼굴을 잡았을 때
-                # print("얼굴잡는중")
-                diff = cv2.absdiff(bg, frame)  # 기준 프레임과 다른점을 찾음
-                mask = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
-                th, thresh = cv2.threshold(mask, 10, 255, cv2.THRESH_BINARY)
+                elif is_face is 1:  # 얼굴을 잡았을 때
+                    # print("얼굴잡는중")
+                    diff = cv2.absdiff(bg, frame)  # 기준 프레임과 다른점을 찾음
+                    mask = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+                    th, thresh = cv2.threshold(mask, 10, 255, cv2.THRESH_BINARY)
 
-                opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
-                closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)
-                img_dilation = cv2.dilate(closing, kernel, iterations=2)
-                imask = img_dilation > 0
-                foreground = mask_array(frame, imask)
-                foreground_display = foreground.copy()
+                    opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
+                    closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)
+                    img_dilation = cv2.dilate(closing, kernel, iterations=2)
+                    imask = img_dilation > 0
+                    foreground = mask_array(frame, imask)
+                    foreground_display = foreground.copy()
 
-                tracking, bbox = tracker.update(foreground)
-                tracking = int(tracking)
+                    tracking, bbox = tracker.update(foreground)
+                    tracking = int(tracking)
 
-                p1 = (int(bbox[0]), int(bbox[1]))
-                p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
+                    p1 = (int(bbox[0]), int(bbox[1]))
+                    p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
 
-                if p1 == (0, 0):
-                    is_face = -1
-                    continue
+                    if p1 == (0, 0):
+                        is_face = -1
+                        continue
 
-                cv2.rectangle(foreground_display, p1, p2, (255, 0, 0), 2, 1)
-                cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)
+                    cv2.rectangle(foreground_display, p1, p2, (255, 0, 0), 2, 1)
+                    cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)
 
-                # print('def_x:def_y', (def_x, def_y), 'p1_x:p1_y', p1)
+                    # print('def_x:def_y', (def_x, def_y), 'p1_x:p1_y', p1)
 
-                detected_face = frame[int(bbox[1]):int(bbox[1] + bbox[3]), int(bbox[0]):int(bbox[0] + bbox[2])]
-                detected_face = imutils.resize(detected_face, 3 * h, 3 * w)
+                    detected_face = frame[int(bbox[1]):int(bbox[1] + bbox[3]), int(bbox[0]):int(bbox[0] + bbox[2])]
+                    detected_face = imutils.resize(detected_face, 3 * h, 3 * w)
 
-                frame[10: 10+detected_face.shape[1], 10: 10+detected_face.shape[0]] = detected_face
+                    frame[10: 10+detected_face.shape[1], 10: 10+detected_face.shape[0]] = detected_face
 
-                if abs(def_x - p1[0]) > 4 or abs(def_y - p1[1]) > 4:
-                    if chk_move == 0:
-                        cnt = cnt+1
-                        chk_move = 1
-                else:
-                    chk_move = 0
+                    if abs(def_x - p1[0]) > 4 or abs(def_y - p1[1]) > 4:
+                        if chk_move == 0:
+                            face_move_cnt = face_move_cnt+1
+                            chk_move = 1
+                    else:
+                        chk_move = 0
 
-            cv2.imshow('Face Detector', frame)
+                cv2.imshow('Face Detector', frame)
 
-            if cv2.waitKey(1) == 27:
+                if cv2.waitKey(1) == 27:
+                    break
+            else:
                 break
-        else:
-            break
 
-    insert_correct_result(video_info, cnt)
+        insert_correct_result(video_info, face_move_cnt)
 
-    video.release()
-    cv2.destroyAllWindows()
+        video.release()
+        cv2.destroyAllWindows()
+
+        return 1
+    except Exception as error:
+        print("Failed to correct.")
+        print("Error:", repr(error))
+        return 0
