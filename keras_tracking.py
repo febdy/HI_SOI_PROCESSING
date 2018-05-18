@@ -88,27 +88,27 @@ def do_correction(video_info):
     #            print('face_move_cnt:', face_move_cnt)
 
                 if is_face is -1:  # 얼굴이 잡히지 않았을 때
-                    for (x, y, w, h) in face_rects:
-                        # print("얼굴안잡는중")
-                        face_rect = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+                        for (x, y, w, h) in face_rects:
+                            # print("얼굴안잡는중")
+                            face_rect = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
-                        img = cv2.resize(face_rect, (28, 28))
-                        img = img.astype("float") / 255.0
-                        img = img_to_array(img)
-                        img = np.expand_dims(img, axis=0)
+                            img = cv2.resize(face_rect, (28, 28))
+                            img = img.astype("float") / 255.0
+                            img = img_to_array(img)
+                            img = np.expand_dims(img, axis=0)
 
-                        (not_face, face) = model.predict(img)[0]
+                            (not_face, face) = model.predict(img)[0]
 
-                        label = "face" if face > not_face else "Not face"
+                            label = "face" if face > not_face else "Not face"
 
-                        if label == "face":
-                            bg = frame.copy()
-                            bbox = (x, y, w, h)
-                            def_x = x  # 움직임 계산할 때 기준이 되는 x, y
-                            def_y = y
-                            is_face = 1
-                            tracker = setup_tracker(2)
-                            tracking = tracker.init(frame, bbox)
+                            if label == "face":
+                                bg = frame.copy()
+                                bbox = (x, y, w, h)
+                                def_x = x  # 움직임 계산할 때 기준이 되는 x, y
+                                def_y = y
+                                is_face = 1
+                                tracker = setup_tracker(2)
+                                tracking = tracker.init(frame, bbox)
 
                 elif is_face is 1:  # 얼굴을 잡았을 때
                     # print("얼굴잡는중")
@@ -150,10 +150,9 @@ def do_correction(video_info):
                     else:
                         chk_move = 0
 
-                cv2.imshow('Face Detector', frame)
-
-                if cv2.waitKey(1) == 27:
-                    break
+             #   cv2.imshow('Face Detector', frame)
+           #     if cv2.waitKey(1) == 27:
+            #        break
             else:
                 break
 

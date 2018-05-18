@@ -17,9 +17,14 @@ def insert_correct_result(video_info, face_move_cnt):
               "date": datetime.datetime.now()}
 
     collection.insert_one(result)
-    print("Insert correction result to MongoDB success.")
+    print("[SUCCESS] Inserted a correction result into MongoDB successfully.")
 
 
-def get_video_info(video_save_name):
+def get_video_info(video_no):
     collection = db['video_info']
-    return collection.find_one({'videoSaveName': video_save_name})
+    return collection.find_one({'videoNo': video_no})
+
+
+# def get_video_info(video_save_name):
+#     collection = db['video_info']
+#     return collection.find_one({'videoSaveName': video_save_name})
