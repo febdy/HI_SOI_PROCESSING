@@ -22,9 +22,15 @@ def insert_correct_result(video_info, face_move_cnt):
 
 def get_video_info(video_no):
     collection = db['video_info']
-    return collection.find_one({'videoNo': video_no})
+    return collection.find_one({'videoNo': str(video_no)})
 
 
 # def get_video_info(video_save_name):
 #     collection = db['video_info']
 #     return collection.find_one({'videoSaveName': video_save_name})
+
+
+def update_correct_result(video_no, face_move_cnt):
+    collection = db['video_info']
+    collection.update_one({'videoNo': str(video_no)}, {'$set': {"faceMoveCnt": face_move_cnt}})
+    print("[SUCCESS] Inserted a correction result into MongoDB successfully.")

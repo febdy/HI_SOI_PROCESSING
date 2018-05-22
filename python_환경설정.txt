@@ -1,0 +1,11 @@
+~ cmd ~
+conda create -n hi_soi python=3.6
+
+~ pycharm ~
+File - Settings - Project Interpreter - 톱니바퀴 - add - Conda Environment - Existing environment - Interpreter 경로 - C:\Users\본인\Anaconda3\envs\hi_soi\python.exe(아나콘다 설치된 경로) - OK
+
+~ cmd ~
+conda activate hi_soi
+PycharmProjects - hi_soi-processing 폴더 찾아가기
+pip install -r requirements.txt
+-> 이 단계에서 설치 안되면 초기환경설정.txt 파일 찾아가서 직접 lib들 설치.

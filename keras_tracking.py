@@ -4,11 +4,11 @@ from keras.models import load_model
 import numpy as np
 import imutils
 import cv2
-from conn_pymongo import insert_correct_result
+from conn_pymongo import update_correct_result
 
 # 얼굴 탐지
-# conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/haarcascades/'
-conda_path = 'C:/Users/BIT-USER/Anaconda3/Lib/site-packages/cv2/data/'
+conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/haarcascades/'
+# conda_path = 'C:/Users/BIT-USER/Anaconda3/Lib/site-packages/cv2/data/'
 face_cascade = cv2.CascadeClassifier(conda_path + 'haarcascade_frontalface_default.xml')
 
 # video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN.mp4')
@@ -156,7 +156,7 @@ def do_correction(video_info):
             else:
                 break
 
-        insert_correct_result(video_info, face_move_cnt)
+        update_correct_result(video_info['videoNo'], face_move_cnt)
 
         video.release()
         cv2.destroyAllWindows()
