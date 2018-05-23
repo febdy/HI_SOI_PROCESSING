@@ -1,7 +1,7 @@
 from flask import Flask
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, send, emit
 import conn_pymongo
-import keras_tracking
+import read_video
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -22,20 +22,18 @@ def conn_disconnect():
 def handle_message(video_no):
     print('received videoNo: ' + str(video_no))
 
-    result = get_video_info(video_no)
-    send(result)
+    video_info = get_video_info(video_no)
+    result = read_video.read_video(video_info)
+    socketio.emit('result', result)
 
 
 def get_video_info(video_no):
-    result = 0
-
     try:
         video_info = conn_pymongo.get_video_info(video_no)
-        result = keras_tracking.do_correction(video_info)
     except Exception as e:
         print("get_video_info error :::: ", repr(e))
 
-    return result
+    return video_info
 
 
 if __name__ == '__main__':

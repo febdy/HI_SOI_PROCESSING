@@ -11,7 +11,8 @@ conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/ha
 # conda_path = 'C:/Users/BIT-USER/Anaconda3/Lib/site-packages/cv2/data/'
 face_cascade = cv2.CascadeClassifier(conda_path + 'haarcascade_frontalface_default.xml')
 
-# video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN.mp4')
+# video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4')
+
 model = load_model('face_ex.model')
 scaling_factor = 0.75
 kernel = np.ones((3, 3), np.uint8)
@@ -51,20 +52,136 @@ def mask_array(array, imask):
     return output
 
 
-def do_face_correction(video_info):
-    video = cv2.VideoCapture(video_info["videoPath"])
+# is_face = -1
+# face_move_cnt = 0
+# chk_move = 0
+#
+# bg = None
+# bbox = None
+# def_x = 0  # 움직임 계산할 때 기준이 되는 x, y
+# def_y = 0
+# def_w = 0
+# def_h = 0
+# tracker = setup_tracker(2)
+# tracking = None
+#
+#
+# def do_face_correction(frame):
+#     global is_face
+#     global face_move_cnt
+#     global chk_move
+#
+#     global bg
+#     global bbox
+#     global def_x
+#     global def_y
+#     global def_w
+#     global def_h
+#     global tracker
+#     global tracking
+#
+#     try:
+#         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#         face_rects = face_cascade.detectMultiScale(gray, 1.3, 5)
+#
+# #            print('face_move_cnt:', face_move_cnt)
+#
+#         if is_face is -1:  # 얼굴이 잡히지 않았을 때
+#                 for (x, y, w, h) in face_rects:
+#                     print("얼굴안잡는중")
+#                     face_rect = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+#
+#                     img = cv2.resize(face_rect, (28, 28))
+#                     img = img.astype("float") / 255.0
+#                     img = img_to_array(img)
+#                     img = np.expand_dims(img, axis=0)
+#
+#                     (not_face, face) = model.predict(img)[0]
+#
+#                     label = "face" if face > not_face else "Not face"
+#
+#                     if label == "face":
+#                         bg = frame.copy()
+#                         bbox = (x, y, w, h)
+#                         def_x = x  # 움직임 계산할 때 기준이 되는 x, y
+#                         def_y = y
+#                         def_w = w
+#                         def_h = h
+#                         is_face = 1
+#                         tracker = setup_tracker(2)
+#                         tracking = tracker.init(frame, bbox)
+#
+#         elif is_face is 1:  # 얼굴을 잡았을 때
+#             print("얼굴잡는중")
+#             diff = cv2.absdiff(bg, frame)  # 기준 프레임과 다른점을 찾음
+#             mask = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+#             th, thresh = cv2.threshold(mask, 10, 255, cv2.THRESH_BINARY)
+#
+#             opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
+#             closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)
+#             img_dilation = cv2.dilate(closing, kernel, iterations=2)
+#             imask = img_dilation > 0
+#             foreground = mask_array(frame, imask)
+#             foreground_display = foreground.copy()
+#
+#             tracking, bbox = tracker.update(foreground)
+#             tracking = int(tracking)
+#
+#             p1 = (int(bbox[0]), int(bbox[1]))
+#             p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
+#
+#             if p1 == (0, 0):
+#                 is_face = -1
+#                 return
+#
+#             cv2.rectangle(foreground_display, p1, p2, (255, 0, 0), 2, 1)
+#             cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)
+#
+#             # print('def_x:def_y', (def_x, def_y), 'p1_x:p1_y', p1)
+#
+#             detected_face = frame[int(bbox[1]):int(bbox[1] + bbox[3]), int(bbox[0]):int(bbox[0] + bbox[2])]
+#             detected_face = imutils.resize(detected_face, 3 * def_h, 3 * def_w)
+#
+#             frame[10: 10+detected_face.shape[1], 10: 10+detected_face.shape[0]] = detected_face
+#
+#             if abs(def_x - p1[0]) > 4 or abs(def_y - p1[1]) > 4:
+#                 if chk_move == 0:
+#                     face_move_cnt = face_move_cnt+1
+#                     chk_move = 1
+#             else:
+#                 chk_move = 0
+#
+#         # cv2.imshow('Face Detector', frame)
+#         # if cv2.waitKey(1) == 27:
+#         #     break
+#
+# #        insert_correct_result(video_info, face_move_cnt)
+#
+#         return 1
+#     except Exception as error:
+#         print("Failed to correct.")
+#         print("Error:", repr(error))
+#         return 0
+
+def do_face_correction(video_info, queue, result_queue):
     is_face = -1
     face_move_cnt = 0
     chk_move = 0
 
     try:
         while True:
-            ret, frame = video.read()
+            frame = queue.get()
+            print("doing_1")
 
-            frame = rotate(frame, 90)
+            if frame is None:
+                cv2.destroyAllWindows()
+                print("1:: face_move_cnt : ", face_move_cnt)
+                update_correct_result(video_info['videoNo'], face_move_cnt)
+                result_queue.put(1)
+                return
 
-            if ret:
-                frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
+            else:
+                # frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
                 face_rects = face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -134,19 +251,12 @@ def do_face_correction(video_info):
                     else:
                         chk_move = 0
 
-             #   cv2.imshow('Face Detector', frame)
-           #     if cv2.waitKey(1) == 27:
-            #        break
-            else:
-                break
+            # cv2.imshow('Face Detector', frame)
+            # if cv2.waitKey(1) == 27:
+            #     break
 
-        update_correct_result(video_info['videoNo'], face_move_cnt)
-
-        video.release()
-        cv2.destroyAllWindows()
-
-        return 1
     except Exception as error:
         print("Failed to correct.")
         print("Error:", repr(error))
-        return 0
+        result_queue.put(0)
+        return

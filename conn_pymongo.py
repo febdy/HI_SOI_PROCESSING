@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 import datetime
+from random import randint
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client['hi_soi']
@@ -32,5 +33,6 @@ def get_video_info(video_no):
 
 def update_correct_result(video_no, face_move_cnt):
     collection = db['video_info']
-    collection.update_one({'videoNo': str(video_no)}, {'$set': {"faceMoveCnt": face_move_cnt}})
+    collection.update_one({'videoNo': str(video_no)}, {'$set': {"faceMoveCnt": randint(0, 9)}})
+    #face_move_cnt}})
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")
