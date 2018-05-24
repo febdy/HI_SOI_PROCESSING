@@ -31,8 +31,10 @@ def get_video_info(video_no):
 #     return collection.find_one({'videoSaveName': video_save_name})
 
 
-def update_correct_result(video_no, face_move_cnt):
+def update_correct_result(video_no, face_move_cnt, miss_location):
     collection = db['video_info']
-    collection.update_one({'videoNo': str(video_no)}, {'$set': {"faceMoveCnt": randint(0, 9)}})
+    collection.update_one({'videoNo': str(video_no)},
+                          {'$set': {"faceMoveCnt": randint(0, 9),
+                                    "miss_location": miss_location}})
     #face_move_cnt}})
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")
