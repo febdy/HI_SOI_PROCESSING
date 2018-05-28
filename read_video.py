@@ -24,14 +24,13 @@ def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
     return dst
 
 
-def run_video(video_info, queue, fps):
+def run_video(video_info, queue):
     video = cv2.VideoCapture(video_info['videoPath'])
 
     cnt = 0
 
     while True:
         ret, frame = video.read()
-        fps.value = video.get(cv2.CAP_PROP_FPS)
 
         if ret:  # 영상 프레임이 있으면 실행
 
@@ -68,12 +67,11 @@ def read_video(video_info):
     queue = Queue()
     # queue2 = Queue()
     result_queue = Queue()
-    fps = Value('f', 0)
 
-    video_process = Process(target=run_video, args=(video_info, queue, fps, ))
+    video_process = Process(target=run_video, args=(video_info, queue, ))
     video_process.start()
 
-    correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, fps, result_queue, ))
+    correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, result_queue, ))
     correction_process_1.start()
 
     # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, result_queue, ))

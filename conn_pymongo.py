@@ -15,6 +15,7 @@ def insert_correct_result(video_info, face_move_cnt):
     result = {"user_id": video_info["userId"],
               "video_save_name": video_info["videoSaveName"],
               "face_move_cnt": face_move_cnt,
+              "cnt_per_5sec": video_info["cnt_per_5sec"],
               "date": datetime.datetime.now()}
 
     collection.insert_one(result)
@@ -38,6 +39,7 @@ def update_correct_result(video_info):
                                     "miss_location": video_info['miss_location'],
                                     "miss_section": video_info['miss_section'],
                                     "total_video_time": video_info['total_video_time'],
+                                    "cnt_per_5sec": video_info["cnt_per_5sec"],
                                     "date": datetime.datetime.now()}})
     #face_move_cnt}})
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")

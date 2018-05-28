@@ -74,13 +74,33 @@ def check_location(miss_location):
     return miss_location
 
 
-def do_face_correction(video_info, queue, fps, result_queue):
+def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
+    sec = round(int(frame_cnt / fps))
+    i = 0
+
+    if sec != 0 and sec % 5 == 0:
+        i = (sec//5) - 1
+    else:
+        i = sec//5
+
+    if len(cnt_per_5sec) <= i:
+        cnt_per_5sec.append(0)
+
+    cnt_per_5sec[i] = cnt_per_5sec[i] + 1
+
+    return cnt_per_5sec
+
+
+def do_face_correction(video_info, queue, result_queue):
     is_face = -1
     face_move_cnt = 0
     chk_move = 0
     miss_location = []
-    miss_section = []
+    cnt_per_5sec = []
     frame_cnt = 0
+
+    video = cv2.VideoCapture(video_info['videoPath'])
+    fps = video.get(cv2.CAP_PROP_FPS)
 
     try:
         while True:
@@ -92,13 +112,13 @@ def do_face_correction(video_info, queue, fps, result_queue):
                 cv2.destroyAllWindows()
                 print("1:: face_move_cnt : ", face_move_cnt)
 
-                video_info['miss_location'] = miss_location.copy()
-                miss_section = check_location(miss_location)
+                video_info['miss_location'] = miss_location.copy()  # 움직인 시작, 끝 시간
+                miss_section = check_location(miss_location)  # 움직인 시간 구간으로 바꾸어 저장
                 video_info['miss_section'] = miss_section
 
-                video = cv2.VideoCapture(video_info['videoPath'])
-                total_video_time = (video.get(cv2.CAP_PROP_FRAME_COUNT) * video.get(cv2.CAP_PROP_FPS)) / 1000
-                video_info['total_video_time'] = round(total_video_time)
+                total_video_time = (video.get(cv2.CAP_PROP_FRAME_COUNT) * fps) / 1000
+                video_info['total_video_time'] = round(total_video_time)  # 비디오 총 재생 시간
+                video_info['cnt_per_5sec'] = cnt_per_5sec  # 5초 간격 cnt
 
                 update_correct_result(video_info)
                 result_queue.put(1)
@@ -171,13 +191,17 @@ def do_face_correction(video_info, queue, fps, result_queue):
                         if chk_move == 0:
                             face_move_cnt = face_move_cnt+1
                             chk_move = 1
-                            start = int(floor(frame_cnt / fps.value))
+
+                            start = int(floor(frame_cnt / fps))
                             miss_location.append(start)
+
+                            cnt_per_5sec = check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps)
+
                             print("frame_cnt, start::::", frame_cnt, start)
 
                     else:
                         if chk_move == 1:
-                            end = int(ceil(frame_cnt / fps.value))
+                            end = int(ceil(frame_cnt / fps))
                             miss_location.append(end)
                             print("frame_cnt, end::::", frame_cnt, end)
                         chk_move = 0
