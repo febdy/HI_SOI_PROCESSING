@@ -40,6 +40,7 @@ def update_correct_result(video_info):
                                     "miss_section": video_info['miss_section'],
                                     "total_video_time": video_info['total_video_time'],
                                     "cnt_per_5sec": video_info["cnt_per_5sec"],
+                                    "move_direction": video_info["move_direction"],
                                     "date": datetime.datetime.now()}})
     #face_move_cnt}})
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")

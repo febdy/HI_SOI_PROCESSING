@@ -86,7 +86,7 @@ def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
     if len(cnt_per_5sec) <= i:
         cnt_per_5sec.append(0)
 
-    cnt_per_5sec[i] = cnt_per_5sec[i] + 1
+    cnt_per_5sec[i] += 1
 
     return cnt_per_5sec
 
@@ -95,9 +95,11 @@ def do_face_correction(video_info, queue, result_queue):
     is_face = -1
     face_move_cnt = 0
     chk_move = 0
+    frame_cnt = 0
+
     miss_location = []
     cnt_per_5sec = []
-    frame_cnt = 0
+    move_direction = [0, 0, 0, 0]  # 상, 하, 좌, 우
 
     video = cv2.VideoCapture(video_info['videoPath'])
     fps = video.get(cv2.CAP_PROP_FPS)
@@ -119,6 +121,7 @@ def do_face_correction(video_info, queue, result_queue):
                 total_video_time = (video.get(cv2.CAP_PROP_FRAME_COUNT) * fps) / 1000
                 video_info['total_video_time'] = round(total_video_time)  # 비디오 총 재생 시간
                 video_info['cnt_per_5sec'] = cnt_per_5sec  # 5초 간격 cnt
+                video_info['move_direction'] = move_direction
 
                 update_correct_result(video_info)
                 result_queue.put(1)
@@ -192,10 +195,22 @@ def do_face_correction(video_info, queue, result_queue):
                             face_move_cnt = face_move_cnt+1
                             chk_move = 1
 
+                            # 움직인 시작 초
                             start = int(floor(frame_cnt / fps))
                             miss_location.append(start)
 
+                            # 5초동안 cnt
                             cnt_per_5sec = check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps)
+
+                            # 움직인 방향 move_direction[상, 하, 좌, 우]
+                            if def_y - p1[1] < 0:  # 상
+                                move_direction[0] += 1
+                            if def_y - p1[1] > 0:  # 하
+                                move_direction[1] += 1
+                            if def_x - p1[0] < 0:  # 좌
+                                move_direction[2] += 1
+                            if def_x - p1[0] > 0:  # 우
+                                move_direction[3] += 1
 
                             print("frame_cnt, start::::", frame_cnt, start)
 
