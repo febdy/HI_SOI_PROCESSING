@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="39b0e73f-7b9a-4c04-bf25-77f5862ae4d1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/.idea/tf-pose-estimation-master.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/docker/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/docker/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/dance.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/feature.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/inference_result2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/loss_ll_heat.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/loss_ll_paf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/openpose_macbook13_mobilenet2.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/openpose_macbook_cmu.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/openpose_macbook_mobilenet3.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/openpose_p40_cmu.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/openpose_p40_mobilenet.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/openpose_tx2_mobilenet3.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/ros.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/etcs/training.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/apink1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/apink1_crop.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/apink1_crop_s1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/apink2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/apink3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/cat.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/golf.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/hand1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/hand1_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/hand2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/handsup1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/p1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/p2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/p3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/p3_dance.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/ski.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/images/valid_person1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/collect_data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/completed_tracking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/conn_pymongo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/gesture_tracking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/hand_tracking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/img_contours.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/img_subtraction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/img_video_ex/tracking_ex.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/launch/demo_video.launch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/graph/cmu/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/graph/mobilenet_thin/graph.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/graph/mobilenet_thin/graph_freeze.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/graph/mobilenet_thin/graph_opt.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/numpy/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/pretrained/mobilenet_v1_0.50_224_2017_06_14/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/pretrained/mobilenet_v1_0.75_224_2017_06_14/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/models/pretrained/mobilenet_v1_1.0_224_2017_06_14/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/msg/BodyPartElm.msg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/msg/Person.msg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/msg/Persons.msg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/package.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/scripts/broadcaster_ros.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/scripts/visualization.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/common.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/datum_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/estimator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/face_ex.model" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/keras_tracking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/lifting/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/lifting/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/lifting/draw.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/lifting/models/prob_model_params.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/lifting/prob_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/lifting/upright_fast.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/multiprocessing_video.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/multiprocessingtest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/network_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/network_cmu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/network_dsconv.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/network_mobilenet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/network_mobilenet_thin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/networks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/plus_traking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/pose_augment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/pose_datamaster.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/pose_dataset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/pose_dataworker.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/pose_stats.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/run.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/run_checkpoint.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/run_directory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/run_video.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/run_video_buffer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/run_video_multi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/run_webcam.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/alexnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/alexnet_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/cifarnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/cyclegan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/cyclegan_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/dcgan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/dcgan_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_resnet_v2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_resnet_v2_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v1_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v2_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v3_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v4.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/inception_v4_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/lenet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/mobilenet_v1.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/mobilenet_v1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/mobilenet_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/mobilenet_v1_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nasnet/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nasnet/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet_utils_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nets_factory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/nets_factory_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/overfeat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/overfeat_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/pix2pix.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/pix2pix_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/resnet_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/resnet_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/resnet_v1_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/resnet_v2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/resnet_v2_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/vgg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/nets/vgg_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/preprocessing/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/preprocessing/cifarnet_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/preprocessing/inception_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/preprocessing/lenet_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/preprocessing/preprocessing_factory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/slim/preprocessing/vgg_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/test_read_video.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/test_run_video.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/thread_basic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/src/train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/.idea/tf-pose-estimation-master.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/docker/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/docker/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/dance.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/feature.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/inference_result2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/loss_ll_heat.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/loss_ll_paf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/openpose_macbook13_mobilenet2.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/openpose_macbook_cmu.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/openpose_macbook_mobilenet3.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/openpose_p40_cmu.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/openpose_p40_mobilenet.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/openpose_tx2_mobilenet3.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/ros.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/etcs/training.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/apink1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/apink1_crop.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/apink1_crop_s1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/apink2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/apink3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/cat.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/golf.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/hand1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/hand1_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/hand2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/handsup1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/p1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/p2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/p3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/p3_dance.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/ski.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/images/valid_person1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/launch/demo_video.launch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/graph/cmu/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/graph/mobilenet_thin/graph.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/graph/mobilenet_thin/graph_freeze.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/graph/mobilenet_thin/graph_opt.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/numpy/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/pretrained/mobilenet_v1_0.50_224_2017_06_14/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/pretrained/mobilenet_v1_0.75_224_2017_06_14/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/models/pretrained/mobilenet_v1_1.0_224_2017_06_14/download.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/msg/BodyPartElm.msg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/msg/Person.msg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/msg/Persons.msg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/package.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/scripts/broadcaster_ros.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/scripts/visualization.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/HUN.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/common.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/datum_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/estimator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/lifting/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/lifting/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/lifting/draw.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/lifting/models/prob_model_params.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/lifting/prob_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/lifting/upright_fast.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/network_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/network_cmu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/network_dsconv.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/network_mobilenet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/network_mobilenet_thin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/networks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/pose_augment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/pose_datamaster.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/pose_dataset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/pose_dataworker.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/pose_stats.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/run.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/run_checkpoint.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/run_directory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/run_video.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/run_webcam.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/alexnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/alexnet_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/cifarnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/cyclegan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/cyclegan_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/dcgan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/dcgan_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_resnet_v2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_resnet_v2_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v1_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v2_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v3_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v4.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/inception_v4_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/lenet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/mobilenet_v1.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/mobilenet_v1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/mobilenet_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/mobilenet_v1_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nasnet/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nasnet/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nasnet/nasnet_utils_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nets_factory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/nets_factory_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/overfeat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/overfeat_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/pix2pix.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/pix2pix_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/resnet_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/resnet_v1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/resnet_v1_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/resnet_v2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/resnet_v2_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/vgg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/nets/vgg_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/preprocessing/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/preprocessing/cifarnet_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/preprocessing/inception_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/preprocessing/lenet_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/preprocessing/preprocessing_factory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/slim/preprocessing/vgg_preprocessing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tf-pose-estimation-master/tf-pose-estimation-master/src/train.py" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="run_video.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/run_video.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2090">
+              <caret line="106" column="48" selection-start-line="106" selection-start-column="48" selection-end-line="106" selection-end-column="48" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_read_video.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test_read_video.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1540">
+              <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
+              <folding>
+                <element signature="e#32#74#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run_video_multi.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/run_video_multi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="55">
+              <caret line="182" column="19" lean-forward="true" selection-start-line="182" selection-start-column="19" selection-end-line="182" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="threading.pyi" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3/threading.pyi">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1738">
+              <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="estimator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/estimator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8228">
+              <caret line="385" selection-start-line="385" selection-end-line="385" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>transpo</find>
+      <find>Rotate</find>
+      <find>cap.read</find>
+      <find>FRAMEE</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/practice.py" />
+        <option value="$PROJECT_DIR$/src/run_video_buffer.py" />
+        <option value="$PROJECT_DIR$/src/keras_tracking.py" />
+        <option value="$PROJECT_DIR$/src/plus_traking.py" />
+        <option value="$PROJECT_DIR$/src/thread_basic.py" />
+        <option value="$PROJECT_DIR$/src/muliprocessing_video.py" />
+        <option value="$PROJECT_DIR$/src/multiprocessing.py" />
+        <option value="$PROJECT_DIR$/src/thread_video.py" />
+        <option value="$PROJECT_DIR$/src/multiprocessing_video.py" />
+        <option value="$PROJECT_DIR$/src/multi_video.py" />
+        <option value="$PROJECT_DIR$/src/estimator.py" />
+        <option value="$PROJECT_DIR$/src/read_video.py" />
+        <option value="$PROJECT_DIR$/src/test_read_video.py" />
+        <option value="$PROJECT_DIR$/src/test_run_video.py" />
+        <option value="$PROJECT_DIR$/src/run_video.py" />
+        <option value="$PROJECT_DIR$/src/run_video_multi.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="503" />
+    <option name="width" value="1424" />
+    <option name="height" value="1038" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="tf-pose-estimation-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tf-pose-estimation-master" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tf-pose-estimation-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tf-pose-estimation-master" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\BIT-USER\PycharmProjects\tf-pose-estimation-master\tf-pose-estimation-master" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\BIT-USER\PycharmProjects\tf-pose-estimation-master\tf-pose-estimation-master\src" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.run_video_multi">
+    <configuration name="multi_video" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-pose-estimation-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/multi_video.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="multiprocessing_video" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-pose-estimation-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/multiprocessing_video.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="run_video" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-pose-estimation-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/run_video.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="run_video_multi" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-pose-estimation-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/run_video_multi.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="py.test in test_run_video.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="tf-pose-estimation-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/test_run_video.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.multiprocessing_video" />
+      <item itemvalue="Python.run_video" />
+      <item itemvalue="Python.multi_video" />
+      <item itemvalue="Python.run_video_multi" />
+      <item itemvalue="Python tests.py.test in test_run_video.py" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.run_video_multi" />
+        <item itemvalue="Python tests.py.test in test_run_video.py" />
+        <item itemvalue="Python.run_video" />
+        <item itemvalue="Python.multi_video" />
+        <item itemvalue="Python.multiprocessing_video" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39b0e73f-7b9a-4c04-bf25-77f5862ae4d1" name="Default" comment="" />
+      <created>1525153652011</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1525153652011</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 08m 53s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 09m 12s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 09m 24s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 10m 13s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 10m 18s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 22m 25s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 22m 41s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_run_video_py - 2018.05.24 at 11h 22m 45s.xml">
+      <configuration name="py.test in test_run_video.py" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="403" y="0" width="1139" height="830" extended-state="0" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11978222" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.28635347" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3299435" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1495">
+          <caret line="76" column="41" lean-forward="true" selection-start-line="76" selection-start-column="41" selection-end-line="76" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/estimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2024">
+          <caret line="99" column="16" lean-forward="true" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/multiprocessing_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="33" column="63" lean-forward="true" selection-start-line="31" selection-start-column="3" selection-end-line="33" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/multi_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/thread_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/multiprocessingtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/multiprocessing_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="24" column="19" lean-forward="true" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thread_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/multiprocessing_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/multiprocessingtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thread_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/multiprocessingtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="29" lean-forward="true" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/muliprocessing_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/plus_traking.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2047">
+          <caret line="105" column="36" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thread_basic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thread_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/plus_traking.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2438">
+          <caret line="106" column="71" lean-forward="true" selection-start-line="106" selection-start-column="71" selection-end-line="106" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1541">
+          <caret line="78" column="19" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video_buffer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1357">
+          <caret line="70" column="24" lean-forward="true" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pose_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1863">
+          <caret line="91" column="30" selection-start-line="91" selection-start-column="30" selection-end-line="91" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pose_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="989">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pose_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1196">
+          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pose_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pose_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pose_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/h5py/_hl/files.py" />
+    <entry file="file://$PROJECT_DIR$/src/pose_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video_buffer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="70" column="24" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/keras_tracking.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="94" column="49" lean-forward="true" selection-start-line="94" selection-start-column="49" selection-end-line="94" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plus_traking.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2047">
+          <caret line="105" column="36" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/muliprocessing_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/thread_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/pose_augment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="85" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/multiprocessingtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tf-pose-estimation-master/src/estimator.py" />
+    <entry file="file://$PROJECT_DIR$/src/multiprocessing_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/multi_video.py" />
+    <entry file="file://$PROJECT_DIR$/src/thread_basic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/estimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8228">
+          <caret line="385" selection-start-line="385" selection-end-line="385" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-313451744/cv2/__init__.py" />
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-313451744/cv2/VideoCapture.py" />
+    <entry file="file://$PROJECT_DIR$/src/test_run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2090">
+          <caret line="106" column="48" selection-start-line="106" selection-start-column="48" selection-end-line="106" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test_read_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1540">
+          <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
+          <folding>
+            <element signature="e#32#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3/threading.pyi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1738">
+          <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/h5py/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/src/run_video_multi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="182" column="19" lean-forward="true" selection-start-line="182" selection-start-column="19" selection-end-line="182" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

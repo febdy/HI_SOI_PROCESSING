@@ -55,11 +55,10 @@ def mask_array(array, imask):
 
 
 def check_location(miss_location):
-
     i = 1
     ml_len = len(miss_location)
 
-    while i < ml_len-2:
+    while i < ml_len-2:  # 범위 벗어난 시간이 겹치면 이어지게 만듦.
         e = miss_location[i]
         next_s = miss_location[i+1]
 
@@ -174,9 +173,9 @@ def do_face_correction(video_info, queue, fps, result_queue):
                             print("frame_cnt, end::::", frame_cnt, end)
                         chk_move = 0
 
-            cv2.imshow('Face Detector', frame)
-            if cv2.waitKey(1) == 27:
-                break
+            # cv2.imshow('Face Detector', frame)
+            # if cv2.waitKey(1) == 27:
+            #     break
 
     except Exception as error:
         print("Failed to correct.")
