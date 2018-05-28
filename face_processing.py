@@ -79,6 +79,7 @@ def do_face_correction(video_info, queue, fps, result_queue):
     face_move_cnt = 0
     chk_move = 0
     miss_location = []
+    miss_section = []
     frame_cnt = 0
 
     try:
@@ -90,8 +91,16 @@ def do_face_correction(video_info, queue, fps, result_queue):
             if frame is None:
                 cv2.destroyAllWindows()
                 print("1:: face_move_cnt : ", face_move_cnt)
-                miss_location = check_location(miss_location)
-                update_correct_result(video_info['videoNo'], face_move_cnt, miss_location)
+
+                video_info['miss_location'] = miss_location.copy()
+                miss_section = check_location(miss_location)
+                video_info['miss_section'] = miss_section
+
+                video = cv2.VideoCapture(video_info['videoPath'])
+                total_video_time = (video.get(cv2.CAP_PROP_FRAME_COUNT) * video.get(cv2.CAP_PROP_FPS)) / 1000
+                video_info['total_video_time'] = round(total_video_time)
+
+                update_correct_result(video_info)
                 result_queue.put(1)
                 return
 

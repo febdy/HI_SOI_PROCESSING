@@ -1,5 +1,5 @@
 # import the necessary packages
-from multiprocessing import Process, Queue, Value
+from multiprocessing import Process, Queue, Value, Manager
 # from conn_pymongo import insert_correct_result
 from face_processing import do_face_correction
 from pose_estimation.src.run_video_multi import do_pose_estimation
@@ -26,6 +26,7 @@ def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
 
 def run_video(video_info, queue, fps):
     video = cv2.VideoCapture(video_info['videoPath'])
+
     cnt = 0
 
     while True:
@@ -75,12 +76,12 @@ def read_video(video_info):
     correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, fps, result_queue, ))
     correction_process_1.start()
 
-    correction_process_2 = Process(target=do_pose_estimation, args=(video_info, result_queue, ))
-    correction_process_2.start()
+    # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, result_queue, ))
+    # correction_process_2.start()
 
     video_process.join()
     correction_process_1.join()
-    correction_process_2.join()
+    # correction_process_2.join()
 
     # insert_correct_result(video_info, face_move_cnt)
     e2 = cv2.getTickCount()
