@@ -54,6 +54,7 @@ def mask_array(array, imask):
     return output
 
 
+# 움직일 때 겹치는 구간 잇기
 def check_location(miss_location):
     i = 1
     ml_len = len(miss_location)
@@ -74,8 +75,10 @@ def check_location(miss_location):
     return miss_location
 
 
+# 5초 단위로 움직이는 횟수 구하기
 def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
     sec = round(int(frame_cnt / fps))
+    print(sec, len(cnt_per_5sec))
     i = 0
 
     if sec != 0 and sec % 5 == 0:
@@ -83,7 +86,7 @@ def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
     else:
         i = sec//5
 
-    if len(cnt_per_5sec) <= i:
+    while len(cnt_per_5sec) <= i:
         cnt_per_5sec.append(0)
 
     cnt_per_5sec[i] += 1
@@ -91,6 +94,7 @@ def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
     return cnt_per_5sec
 
 
+# 얼굴 인식 실행
 def do_face_correction(video_info, queue, result_queue):
     is_face = -1
     face_move_cnt = 0
@@ -108,7 +112,7 @@ def do_face_correction(video_info, queue, result_queue):
         while True:
             frame = queue.get()
             print("doing face processing..")
-            frame_cnt = frame_cnt + 1
+            frame_cnt = frame_cnt + 1 + 10  # 드랍 프레임 수만큼 더해줌
 
             if frame is None:
                 cv2.destroyAllWindows()
@@ -185,11 +189,13 @@ def do_face_correction(video_info, queue, result_queue):
 
                     # print('def_x:def_y', (def_x, def_y), 'p1_x:p1_y', p1)
 
+                    # 감지된 얼굴 확대해서 보여주기
                     detected_face = frame[int(bbox[1]):int(bbox[1] + bbox[3]), int(bbox[0]):int(bbox[0] + bbox[2])]
                     detected_face = imutils.resize(detected_face, 3 * h, 3 * w)
 
                     frame[10: 10+detected_face.shape[1], 10: 10+detected_face.shape[0]] = detected_face
 
+                    # 움직인 좌표가 4 이하면 move 검사
                     if abs(def_x - p1[0]) > 4 or abs(def_y - p1[1]) > 4:
                         if chk_move == 0:
                             face_move_cnt = face_move_cnt+1
