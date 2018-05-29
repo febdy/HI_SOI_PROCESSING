@@ -1,7 +1,8 @@
 # import the necessary packages
-from multiprocessing import Process, Queue, Value
+from multiprocessing import Process, Queue, Value, Manager
 # from conn_pymongo import insert_correct_result
 from face_processing import do_face_correction
+from pose_estimation.src.run_video_multi import do_pose_estimation
 import cv2
 
 scaling_factor = 0.75
@@ -23,17 +24,17 @@ def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
     return dst
 
 
-def run_video(video_info, queue, fps):
+def run_video(video_info, queue):
     video = cv2.VideoCapture(video_info['videoPath'])
+
     cnt = 0
 
     while True:
         ret, frame = video.read()
-        fps.value = video.get(cv2.CAP_PROP_FPS)
 
         if ret:  # 영상 프레임이 있으면 실행
 
-            if cnt % 1 == 0:
+            if cnt % 10 == 0:
                 frame = rotate(frame, 90)
                 frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
                 queue.put(frame)
@@ -66,16 +67,19 @@ def read_video(video_info):
     queue = Queue()
     # queue2 = Queue()
     result_queue = Queue()
-    fps = Value('f', 0)
 
-    video_process = Process(target=run_video, args=(video_info, queue, fps, ))
+    video_process = Process(target=run_video, args=(video_info, queue, ))
     video_process.start()
 
-    correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, fps, result_queue, ))
+    correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, result_queue, ))
     correction_process_1.start()
+
+    # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, result_queue, ))
+    # correction_process_2.start()
 
     video_process.join()
     correction_process_1.join()
+    # correction_process_2.join()
 
     # insert_correct_result(video_info, face_move_cnt)
     e2 = cv2.getTickCount()
@@ -83,6 +87,7 @@ def read_video(video_info):
 
     while not result_queue.empty():
         get_q = result_queue.get()
+        print("get_q", get_q)
 
         if get_q is 0:
             return 0
