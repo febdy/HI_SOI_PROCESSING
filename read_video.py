@@ -1,6 +1,6 @@
 # import the necessary packages
 from multiprocessing import Process, Queue, Value, Manager
-from conn_pymongo import update_processing_time
+from conn_pymongo import update_grade_and_time
 from face_pupil_processing import do_face_correction
 from pose_estimation.src.run_video_multi import do_pose_estimation
 import cv2
@@ -63,6 +63,15 @@ def show_loop(queue):
             cv2.waitKey(1)
 
 
+def calculate_total_grade(video_info):
+    face_cnt = video_info["face_move_cnt"]
+    eye_cnt = video_info["blink_cnt"]
+
+    total_grade = 100 - ((face_cnt + eye_cnt)*2)
+
+    return total_grade
+
+
 def read_video(video_info):
     e1 = cv2.getTickCount()
 
@@ -79,11 +88,15 @@ def read_video(video_info):
     # correction_process_1.join()
     # correction_process_2.join()
 
+    total_grade = calculate_total_grade(video_info)
+
     e2 = cv2.getTickCount()
     processing_time = (e2-e1) / cv2.getTickFrequency()
     print("correcting time :: ", processing_time)
 
-    update_processing_time(video_info, processing_time)
+    video_info['total_grade'] = total_grade
+    video_info['processing_time'] = processing_time
+    update_grade_and_time(video_info)
 
     if result_1 == 0 or result_2 == 0:
         return 0

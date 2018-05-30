@@ -35,12 +35,12 @@ def update_correct_result(video_info):
     print(video_info)
     collection = db['video_info']
     collection.update_one({'videoNo': video_info['videoNo']},
-                          {'$set': {"faceMoveCnt": video_info['face_move_cnt'],
+                          {'$set': {"total_video_time": video_info['total_video_time'],
+                                    "face_move_cnt": video_info['face_move_cnt'],
+                                    "move_direction": video_info["move_direction"],
                                     "miss_location": video_info['miss_location'],
                                     "miss_section": video_info['miss_section'],
-                                    "total_video_time": video_info['total_video_time'],
                                     "face_move_cnt_per_5sec": video_info["face_move_cnt_per_5sec"],
-                                    "move_direction": video_info["move_direction"],
                                     "blink_cnt": video_info["blink_cnt"],
                                     "eye_blink_cnt_per_5sec": video_info["eye_blink_cnt_per_5sec"],
                                     "date": datetime.datetime.now()}})
@@ -48,9 +48,10 @@ def update_correct_result(video_info):
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")
 
 
-def update_processing_time(video_info, processing_time):
+def update_grade_and_time(video_info):
     collection = db['video_info']
     collection.update_one({'videoNo': video_info['videoNo']},
-                          {'$set': {"processing_time": processing_time}})
+                          {'$set': {"total_grade": video_info['total_grade'],
+                                    "processing_time": video_info['processing_time']}})
 
-    print("[SUCCESS] Inserted the processing_time into MongoDB successfully.")
+    print("[SUCCESS] Inserted the total grade & processing_time into MongoDB successfully.")
