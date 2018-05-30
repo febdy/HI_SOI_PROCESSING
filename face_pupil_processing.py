@@ -5,9 +5,11 @@ import cv2
 import dlib
 import numpy as np
 from imutils import face_utils
+
 from keras.models import load_model
 from keras.preprocessing.image import img_to_array
 from scipy.spatial import distance as dist
+
 from web_cam_video_stream import WebcamVideoStream
 from conn_pymongo import update_correct_result
 
@@ -342,5 +344,4 @@ def do_face_correction(video_info):
     except Exception as error:
         print("Failed to correct.")
         print("Error:", repr(error))
-        result_queue.put(0)
         return
