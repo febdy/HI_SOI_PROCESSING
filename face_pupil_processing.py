@@ -25,6 +25,7 @@ scaling_factor = 0.75
 kernel = np.ones((3, 3), np.uint8)
 
 
+# frame 회전 (frame, 각도)
 def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
     if degrees == 90:
         dst = cv2.transpose(src) # 행렬 변경
@@ -148,7 +149,8 @@ def do_face_correction(video_info):
     blink_cnt = 0  # 눈 깜박임
 
     miss_location = []  # 얼굴 움직인 time_stamp / 짝수:움직임 시작, 홀수/:움직임 끝
-    cnt_per_5sec = []  # 5초 단위로 움직인 횟수 저장
+    face_move_cnt_per_5sec = []  # 5초 단위로 움직인 횟수 저장
+    eye_blink_cnt_per_5sec = []  # 5초 단위로 눈 깜박인 횟수 저장
     move_direction = [0, 0, 0, 0]  # 상, 하, 좌, 우
 
     try:
@@ -182,10 +184,11 @@ def do_face_correction(video_info):
                 video_info['miss_section'] = miss_section
 
                 video_info['blink_cnt'] = blink_cnt  # 깜빡임
+                video_info['eye_blink_cnt_per_5sec'] = eye_blink_cnt_per_5sec
 
                 total_video_time = (video.get(cv2.CAP_PROP_FRAME_COUNT) * fps) / 1000
                 video_info['total_video_time'] = round(total_video_time)  # 비디오 총 재생 시간
-                video_info['cnt_per_5sec'] = cnt_per_5sec  # 5초 간격 cnt
+                video_info['face_move_cnt_per_5sec'] = face_move_cnt_per_5sec  # 5초 간격 cnt
                 video_info['move_direction'] = move_direction
 
                 update_correct_result(video_info)
@@ -294,6 +297,7 @@ def do_face_correction(video_info):
                             # then increment the total number of blinks
                             if COUNTER >= EYE_AR_CONSEC_FRAMES:
                                 blink_cnt += 1
+                                eye_blink_cnt_per_5sec = check_cnt_per_5sec(eye_blink_cnt_per_5sec, frame_cnt, fps)
 
                             # reset the eye frame counter
                             COUNTER = 0
@@ -316,7 +320,7 @@ def do_face_correction(video_info):
                             miss_location.append(start)
 
                             # 5초동안 cnt
-                            cnt_per_5sec = check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps)
+                            face_move_cnt_per_5sec = check_cnt_per_5sec(face_move_cnt_per_5sec, frame_cnt, fps)
 
                             # 움직인 방향 move_direction[상, 하, 좌, 우]
                             if def_y - p1[1] < 0:  # 상

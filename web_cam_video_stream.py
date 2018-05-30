@@ -9,6 +9,11 @@ read_cnt = 0
 
 class WebcamVideoStream:
     def __init__(self, src='', width=320, height=240):
+        global update_cnt
+        global read_cnt
+        update_cnt = 0
+        read_cnt = 0
+
         self.stream = cv2.VideoCapture(src)
         self.stream.set(cv2.CAP_PROP_FRAME_WIDTH, width)
         self.stream.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
