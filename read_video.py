@@ -1,9 +1,11 @@
 # import the necessary packages
 from multiprocessing import Process, Queue, Value, Manager
-# from conn_pymongo import insert_correct_result
-from face_processing import do_face_correction
+from conn_pymongo import update_processing_time
+from face_pupil_processing import do_face_correction
 from pose_estimation.src.run_video_multi import do_pose_estimation
 import cv2
+
+from face_processing_thread import do_face_correction
 
 scaling_factor = 0.75
 
@@ -64,32 +66,57 @@ def show_loop(queue):
 def read_video(video_info):
     e1 = cv2.getTickCount()
 
-    queue = Queue()
-    # queue2 = Queue()
-    result_queue = Queue()
+    result_1 = do_face_correction(video_info)
+    result_2 = do_pose_estimation(video_info)
+    print("thread result", result_1, result_2)
 
-    video_process = Process(target=run_video, args=(video_info, queue, ))
-    video_process.start()
-
-    correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, result_queue, ))
-    correction_process_1.start()
-
-    # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, result_queue, ))
+    # correction_process_1 = Process(target=do_face_correction, args=(video_info, ))
+    # correction_process_1.start()
+    #
+    # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, ))
     # correction_process_2.start()
-
-    video_process.join()
-    correction_process_1.join()
+    #
+    # correction_process_1.join()
     # correction_process_2.join()
 
-    # insert_correct_result(video_info, face_move_cnt)
     e2 = cv2.getTickCount()
-    print("correcting time :: ", (e2-e1) / cv2.getTickFrequency())
+    processing_time = (e2-e1) / cv2.getTickFrequency()
+    print("correcting time :: ", processing_time)
 
-    while not result_queue.empty():
-        get_q = result_queue.get()
-        print("get_q", get_q)
+    update_processing_time(video_info, processing_time)
 
-        if get_q is 0:
-            return 0
+    if result_1 == 0 or result_2 == 0:
+        return 0
 
-    return 1
+# def read_video(video_info):
+#     e1 = cv2.getTickCount()
+#
+#     queue = Queue()
+#     # queue2 = Queue()
+#     result_queue = Queue()
+#
+#     video_process = Process(target=run_video, args=(video_info, queue, ))
+#     video_process.start()
+#
+#     correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, result_queue, ))
+#     correction_process_1.start()
+#
+#     # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, result_queue, ))
+#     # correction_process_2.start()
+#
+#     video_process.join()
+#     correction_process_1.join()
+#     # correction_process_2.join()
+#
+#     # insert_correct_result(video_info, face_move_cnt)
+#     e2 = cv2.getTickCount()
+#     print("correcting time :: ", (e2-e1) / cv2.getTickFrequency())
+#
+#     while not result_queue.empty():
+#         get_q = result_queue.get()
+#         print("get_q", get_q)
+#
+#         if get_q is 0:
+#             return 0
+#
+#     return 1

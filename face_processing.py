@@ -96,6 +96,9 @@ def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
 
 # 얼굴 인식 실행
 def do_face_correction(video_info, queue, result_queue):
+    video = cv2.VideoCapture(video_info['videoPath'])
+    fps = video.get(cv2.CAP_PROP_FPS)
+
     is_face = -1
     face_move_cnt = 0
     chk_move = 0
@@ -104,9 +107,6 @@ def do_face_correction(video_info, queue, result_queue):
     miss_location = []
     cnt_per_5sec = []
     move_direction = [0, 0, 0, 0]  # 상, 하, 좌, 우
-
-    video = cv2.VideoCapture(video_info['videoPath'])
-    fps = video.get(cv2.CAP_PROP_FPS)
 
     try:
         while True:
