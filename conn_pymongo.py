@@ -35,12 +35,20 @@ def get_video_info(video_no):
 def update_correct_result(video_info):
     collection = db['video_info']
     collection.update_one({'videoNo': video_info['videoNo']},
-                          {'$set': {"faceMoveCnt": randint(0, 9),
+                          {'$set': {"faceMoveCnt": video_info['face_move_cnt'],
                                     "miss_location": video_info['miss_location'],
                                     "miss_section": video_info['miss_section'],
                                     "total_video_time": video_info['total_video_time'],
                                     "cnt_per_5sec": video_info["cnt_per_5sec"],
                                     "move_direction": video_info["move_direction"],
                                     "date": datetime.datetime.now()}})
-    #face_move_cnt}})
+
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")
+
+
+def update_processing_time(video_info, processing_time):
+    collection = db['video_info']
+    collection.update_one({'videoNo': video_info['videoNo']},
+                          {'$set': {"processing_time": processing_time}})
+
+    print("[SUCCESS] Inserted the processing_time into MongoDB successfully.")

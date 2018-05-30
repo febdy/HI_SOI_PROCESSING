@@ -1,12 +1,11 @@
-# import the necessary packages
+import cv2
 from keras.preprocessing.image import img_to_array
 from keras.models import load_model
-import numpy as np
-import imutils
-import cv2
 from conn_pymongo import update_correct_result
 from math import floor, ceil
-
+import numpy as np
+import imutils
+from web_cam_video_stream import WebcamVideoStream
 
 # 얼굴 탐지
 conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/haarcascades/'
@@ -18,6 +17,22 @@ face_cascade = cv2.CascadeClassifier(conda_path + 'haarcascade_frontalface_defau
 model = load_model('face_ex.model')
 scaling_factor = 0.75
 kernel = np.ones((3, 3), np.uint8)
+
+
+def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
+    if degrees == 90:
+        dst = cv2.transpose(src) # 행렬 변경
+        dst = cv2.flip(dst, 1)   # 뒤집기
+
+    elif degrees == 180:
+        dst = cv2.flip(src, 0)   # 뒤집기
+
+    elif degrees == 270:
+        dst = cv2.transpose(src) # 행렬 변경
+        dst = cv2.flip(dst, 0)   # 뒤집기
+    else:
+        dst = None
+    return dst
 
 
 # Tracker
@@ -94,8 +109,10 @@ def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
     return cnt_per_5sec
 
 
-# 얼굴 인식 실행
-def do_face_correction(video_info, queue, result_queue):
+def do_face_correction(video_info):
+    video_path = video_info['videoPath']
+    vs = WebcamVideoStream(src=video_path).start()
+
     video = cv2.VideoCapture(video_info['videoPath'])
     fps = video.get(cv2.CAP_PROP_FPS)
 
@@ -110,13 +127,18 @@ def do_face_correction(video_info, queue, result_queue):
 
     try:
         while True:
-            frame = queue.get()
+            ret, frame = vs.read()
+            frame = rotate(frame, 90)
+
             print("doing face processing..")
             frame_cnt = frame_cnt + 1 + 10  # 드랍 프레임 수만큼 더해줌
 
-            if frame is None:
+            if not ret:
+                vs.stop()
                 cv2.destroyAllWindows()
                 print("1:: face_move_cnt : ", face_move_cnt)
+
+                video_info['face_move_cnt'] = face_move_cnt  # 얼굴 움직인 횟수
 
                 video_info['miss_location'] = miss_location.copy()  # 움직인 시작, 끝 시간
                 miss_section = check_location(miss_location)  # 움직인 시간 구간으로 바꾸어 저장
@@ -128,9 +150,7 @@ def do_face_correction(video_info, queue, result_queue):
                 video_info['move_direction'] = move_direction
 
                 update_correct_result(video_info)
-                result_queue.put(1)
-                return
-
+                return 1
             else:
                 # frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -234,5 +254,4 @@ def do_face_correction(video_info, queue, result_queue):
     except Exception as error:
         print("Failed to correct.")
         print("Error:", repr(error))
-        result_queue.put(0)
-        return
+        return 0
