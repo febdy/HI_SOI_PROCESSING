@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 import datetime
-from random import randint
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client['hi_soi']
@@ -41,6 +40,7 @@ def update_correct_result(video_info):
                                     "total_video_time": video_info['total_video_time'],
                                     "cnt_per_5sec": video_info["cnt_per_5sec"],
                                     "move_direction": video_info["move_direction"],
+                                    "blink_cnt": video_info["blink_cnt"],
                                     "date": datetime.datetime.now()}})
 
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")

@@ -1,7 +1,7 @@
 # import the necessary packages
 from multiprocessing import Process, Queue, Value, Manager
 from conn_pymongo import update_processing_time
-from face_processing import do_face_correction
+from face_pupil_processing import do_face_correction
 from pose_estimation.src.run_video_multi import do_pose_estimation
 import cv2
 
