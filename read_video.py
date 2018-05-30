@@ -5,7 +5,7 @@ from face_pupil_processing import do_face_correction
 from pose_estimation.src.run_video_multi import do_pose_estimation
 import cv2
 
-from face_processing_thread import do_face_correction
+# from face_processing_thread import do_face_correction
 
 scaling_factor = 0.75
 

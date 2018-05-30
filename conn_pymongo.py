@@ -32,6 +32,7 @@ def get_video_info(video_no):
 
 
 def update_correct_result(video_info):
+    print(video_info)
     collection = db['video_info']
     collection.update_one({'videoNo': video_info['videoNo']},
                           {'$set': {"faceMoveCnt": video_info['face_move_cnt'],
