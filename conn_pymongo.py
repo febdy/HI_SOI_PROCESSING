@@ -48,6 +48,19 @@ def update_correct_result(video_info):
     print("[SUCCESS] Inserted a correction result into MongoDB successfully.")
 
 
+def update_swk_result(video_info):  # swk : Shoulder, wrist, knee
+    collection = db['video_info']
+    collection.update_one({'videoNo': video_info['videoNo']},
+                          {'$set': {"shoulder_move_cnt": video_info["shoulder_move_cnt"],
+                                    "wrist_move_cnt": video_info["wrist_move_cnt"],
+                                    "knee_move_cnt": video_info["knee_move_cnt"],
+                                    "s_move_direction": video_info["s_move_direction"],
+                                    "w_move_direction": video_info["w_move_direction"],
+                                    "k_move_direction": video_info["k_move_direction"]}})
+
+    print("[SUCCESS] Inserted shoulder, wrist and knee result into MongoDB successfully.")
+
+
 def update_grade_and_time(video_info):
     collection = db['video_info']
     collection.update_one({'videoNo': video_info['videoNo']},
