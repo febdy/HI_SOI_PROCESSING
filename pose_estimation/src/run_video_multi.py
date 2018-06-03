@@ -77,14 +77,14 @@ def do_pose_estimation(video_info):
 
     # 어깨
     if 2 in humans[0].body_parts:
-        s_pre_R_x = humans[0].body_parts[2].x / 2
+        s_pre_R_x = humans[0].body_parts[2].x
         s_pre_R_y = humans[0].body_parts[2].y
 
     if 5 in humans[0].body_parts:
-        s_pre_L_x = humans[0].body_parts[5].x / 2
+        s_pre_L_x = humans[0].body_parts[5].x
         s_pre_L_y = humans[0].body_parts[5].y
 
-        # 손목
+    # 손목
     if 4 in humans[0].body_parts:
         w_pre_R_x = humans[0].body_parts[4].x
         w_pre_R_y = humans[0].body_parts[4].y
@@ -93,7 +93,7 @@ def do_pose_estimation(video_info):
         w_pre_L_x = humans[0].body_parts[7].x
         w_pre_L_y = humans[0].body_parts[7].y
 
-        # 무릎
+    # 무릎
     if 9 in humans[0].body_parts:
         k_pre_R_x = humans[0].body_parts[9].x
         k_pre_R_y = humans[0].body_parts[9].y
@@ -108,6 +108,16 @@ def do_pose_estimation(video_info):
 
     # frame_cnt = 0
     # print("pose_estimation_frame ::", v_cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    chk_move = 0
+    frame_cnt = 0
+    shoulder_move_cnt = 0
+    wrist_move_cnt = 0
+    knee_move_cnt = 0
+    miss_location = []
+    s_move_direction = [0, 0]  # 오른쪽 어깨/왼쪽 어깨
+    w_move_direction = [0, 0]  # 오른쪽 손목/왼쪽 손목
+    k_move_direction = [0, 0]  # 오른쪽 무릎/왼쪽 무릎
 
     while i:
         ret, image = vs.read()
@@ -135,16 +145,6 @@ def do_pose_estimation(video_info):
             image = rotate(image, 90)
             humans = e.inference(image)
             image = TfPoseEstimator.draw_humans(image, humans, imgcopy=False)
-
-            chk_move = 0
-            frame_cnt = 0
-            shoulder_move_cnt = 0
-            wrist_move_cnt = 0
-            knee_move_cnt = 0
-            miss_location = []
-            s_move_direction = [0, 0]  # 어깨 좌/우
-            w_move_direction = [0, 0]  # 손목 좌/우
-            k_move_direction = [0, 0]  # 무릎 좌/우
 
             # R 어깨
             if 2 in humans[0].body_parts:
