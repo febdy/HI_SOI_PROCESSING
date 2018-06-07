@@ -5,6 +5,7 @@ from threading import Thread, Lock
 from conn_pymongo import update_swk_result
 import cv2
 
+from cal_cnt_per_5sec import check_cnt_per_5sec
 from pose_estimation.src.estimator import TfPoseEstimator
 from pose_estimation.src.networks import get_graph_path, model_wh
 
@@ -59,7 +60,9 @@ def do_pose_estimation(video_info):
     # cap = 'C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4'
     cap = video_info['videoPath']
     vs = WebcamVideoStream(src=cap).start()
-    v_cap = cv2.VideoCapture(cap)
+
+    video = cv2.VideoCapture(cap)
+    fps = video.get(cv2.CAP_PROP_FPS)
 
     # if (cap.start() == False):
     #     print("Error opening video stream or file")
@@ -115,18 +118,27 @@ def do_pose_estimation(video_info):
     wrist_move_cnt = 0
     knee_move_cnt = 0
     miss_location = []
+
+    s_move_cnt_per_5sec = []
+    w_move_cnt_per_5sec = []
+    k_move_cnt_per_5sec = []
+
     s_move_direction = [0, 0]  # 오른쪽 어깨/왼쪽 어깨
     w_move_direction = [0, 0]  # 오른쪽 손목/왼쪽 손목
     k_move_direction = [0, 0]  # 오른쪽 무릎/왼쪽 무릎
 
     while i:
         ret, image = vs.read()
+        print("pose_ing")
         if not ret:
             video_info['shoulder_move_cnt'] = shoulder_move_cnt
             video_info['wrist_move_cnt'] = wrist_move_cnt
             video_info['knee_move_cnt'] = knee_move_cnt
 
-            # video_info['cnt_per_5sec'] = cnt_per_5sec  # 5초 간격 cnt
+            video_info['s_move_cnt_per_5sec'] = s_move_cnt_per_5sec
+            video_info['w_move_cnt_per_5sec'] = w_move_cnt_per_5sec
+            video_info['k_move_cnt_per_5sec'] = k_move_cnt_per_5sec
+
             video_info['s_move_direction'] = s_move_direction
             video_info['w_move_direction'] = w_move_direction
             video_info['k_move_direction'] = k_move_direction
@@ -137,11 +149,11 @@ def do_pose_estimation(video_info):
             cv2.destroyAllWindows()
 
             e2 = cv2.getTickCount()
-            print("correcting time :: ", (e2 - e1) / cv2.getTickFrequency())
+            print("pose_correcting time :: ", (e2 - e1) / cv2.getTickFrequency())
             return 1
         else:
             # print("frame_cnt", frame_cnt)
-            # frame_cnt += 1
+            frame_cnt += 1 + 10
             image = rotate(image, 90)
             humans = e.inference(image)
             image = TfPoseEstimator.draw_humans(image, humans, imgcopy=False)
@@ -203,6 +215,9 @@ def do_pose_estimation(video_info):
                         s_move_direction[1] += 1
                         print('왼어깨가 움직였습니다')
 
+                    # 5초동안 cnt
+                    s_move_cnt_per_5sec = check_cnt_per_5sec(s_move_cnt_per_5sec, frame_cnt, fps)
+
                     print('어깨', shoulder_move_cnt)
 
             # 손목
@@ -217,6 +232,10 @@ def do_pose_estimation(video_info):
                     if abs(w_pre_L_x - w_curr_L_x) > 0.01 or abs(w_pre_L_y - w_curr_L_y) > 0.02:  # 좌
                         w_move_direction[1] += 1
                         print('왼손이 움직였습니다')
+
+                    # 5초동안 cnt
+                    w_move_cnt_per_5sec = check_cnt_per_5sec(w_move_cnt_per_5sec, frame_cnt, fps)
+
                     print('손목', wrist_move_cnt)
 
             # 무릎
@@ -231,6 +250,9 @@ def do_pose_estimation(video_info):
                     if abs(k_pre_L_x - k_curr_L_x) > 0.03 or abs(k_pre_L_y - k_curr_L_y) > 0.03:  # 좌
                         k_move_direction[1] += 1
                         print('왼무릎이 움직였습니다')
+
+                    # 5초동안 cnt
+                    k_move_cnt_per_5sec = check_cnt_per_5sec(k_move_cnt_per_5sec, frame_cnt, fps)
 
                     print('무릎', knee_move_cnt)
             else:

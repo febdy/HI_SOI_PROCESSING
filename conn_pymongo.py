@@ -56,7 +56,10 @@ def update_swk_result(video_info):  # swk : Shoulder, wrist, knee
                                     "knee_move_cnt": video_info["knee_move_cnt"],
                                     "s_move_direction": video_info["s_move_direction"],
                                     "w_move_direction": video_info["w_move_direction"],
-                                    "k_move_direction": video_info["k_move_direction"]}})
+                                    "k_move_direction": video_info["k_move_direction"],
+                                    "s_move_cnt_per_5sec": video_info["s_move_cnt_per_5sec"],
+                                    "w_move_cnt_per_5sec": video_info["w_move_cnt_per_5sec"],
+                                    "k_move_cnt_per_5sec": video_info["k_move_cnt_per_5sec"]}})
 
     print("[SUCCESS] Inserted shoulder, wrist and knee result into MongoDB successfully.")
 

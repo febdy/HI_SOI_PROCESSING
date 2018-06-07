@@ -1,11 +1,11 @@
 # import the necessary packages
-from multiprocessing import Process, Queue, Value, Manager
 from conn_pymongo import update_grade_and_time
 from face_pupil_processing import do_face_correction
 from pose_estimation.src.run_video_multi import do_pose_estimation
+from concurrent import futures
 import cv2
+import time
 
-# from face_processing_thread import do_face_correction
 
 scaling_factor = 0.75
 
@@ -75,61 +75,24 @@ def calculate_total_grade(video_info):
 def read_video(video_info):
     e1 = cv2.getTickCount()
 
-    result_1 = do_face_correction(video_info)
-    result_2 = do_pose_estimation(video_info)
-    print("thread result", result_1, result_2)
+    thread_list = []
 
-    # correction_process_1 = Process(target=do_face_correction, args=(video_info, ))
-    # correction_process_1.start()
-    #
-    # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, ))
-    # correction_process_2.start()
-    #
-    # correction_process_1.join()
-    # correction_process_2.join()
+    with futures.ThreadPoolExecutor(max_workers=2) as executor:
+        face_result = executor.submit(do_face_correction, video_info)
+        pose_result = executor.submit(do_pose_estimation, video_info)
 
-    total_grade = calculate_total_grade(video_info)
+        print("thread result", face_result.result(), pose_result.result())
+
+    total_grade = calculate_total_grade(video_info)  # 총 점수
 
     e2 = cv2.getTickCount()
     processing_time = (e2-e1) / cv2.getTickFrequency()
-    print("correcting time :: ", processing_time)
+    print("video_correcting time :: ", processing_time)
 
     video_info['total_grade'] = total_grade
     video_info['processing_time'] = processing_time
-    update_grade_and_time(video_info)
+    update_grade_and_time(video_info)  # 점수, 프로세싱 시간 저장
 
-    if result_1 == 0 or result_2 == 0:
+    # 분석이 제대로 되지 않았으면 0 리턴
+    if face_result.result() == 0 or pose_result.result() == 0:
         return 0
-
-# def read_video(video_info):
-#     e1 = cv2.getTickCount()
-#
-#     queue = Queue()
-#     # queue2 = Queue()
-#     result_queue = Queue()
-#
-#     video_process = Process(target=run_video, args=(video_info, queue, ))
-#     video_process.start()
-#
-#     correction_process_1 = Process(target=do_face_correction, args=(video_info, queue, result_queue, ))
-#     correction_process_1.start()
-#
-#     # correction_process_2 = Process(target=do_pose_estimation, args=(video_info, result_queue, ))
-#     # correction_process_2.start()
-#
-#     video_process.join()
-#     correction_process_1.join()
-#     # correction_process_2.join()
-#
-#     # insert_correct_result(video_info, face_move_cnt)
-#     e2 = cv2.getTickCount()
-#     print("correcting time :: ", (e2-e1) / cv2.getTickFrequency())
-#
-#     while not result_queue.empty():
-#         get_q = result_queue.get()
-#         print("get_q", get_q)
-#
-#         if get_q is 0:
-#             return 0
-#
-#     return 1

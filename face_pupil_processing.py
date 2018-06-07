@@ -10,17 +10,11 @@ from keras.models import load_model
 from keras.preprocessing.image import img_to_array
 from scipy.spatial import distance as dist
 
+from cal_cnt_per_5sec import check_cnt_per_5sec
 from web_cam_video_stream import WebcamVideoStream
 from conn_pymongo import update_correct_result
 
-# 얼굴 탐지
-conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/haarcascades/'
-# conda_path = 'C:/Users/BIT-USER/Anaconda3/Lib/site-packages/cv2/data/'
-face_cascade = cv2.CascadeClassifier(conda_path + 'haarcascade_frontalface_default.xml')
 
-# video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4')
-
-model = load_model('face_ex.model')
 scaling_factor = 0.75
 kernel = np.ones((3, 3), np.uint8)
 
@@ -97,25 +91,6 @@ def check_location(miss_location):
     return miss_location
 
 
-# 5초 단위로 움직이는 횟수 구하기
-def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
-    sec = round(int(frame_cnt / fps))
-    print(sec, len(cnt_per_5sec))
-    i = 0
-
-    if sec != 0 and sec % 5 == 0:
-        i = (sec // 5) - 1
-    else:
-        i = sec // 5
-
-    while len(cnt_per_5sec) <= i:
-        cnt_per_5sec.append(0)
-
-    cnt_per_5sec[i] += 1
-
-    return cnt_per_5sec
-
-
 # 눈 깜빡임 종횡비 구하기
 def eye_aspect_ratio(eye):
     # compute the euclidean distances between the two sets of
@@ -136,6 +111,15 @@ def eye_aspect_ratio(eye):
 
 # 얼굴 인식 실행
 def do_face_correction(video_info):
+    # 얼굴 탐지
+    conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/haarcascades/'
+    # conda_path = 'C:/Users/BIT-USER/Anaconda3/Lib/site-packages/cv2/data/'
+    face_cascade = cv2.CascadeClassifier(conda_path + 'haarcascade_frontalface_default.xml')
+
+    # video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4')
+
+    model = load_model('face_ex.model')
+
     video_path = video_info['videoPath']
     vs = WebcamVideoStream(src=video_path).start()
 
