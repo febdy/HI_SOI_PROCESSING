@@ -4,12 +4,14 @@ from face_pupil_processing import do_face_correction
 from pose_estimation.src.run_video_multi import do_pose_estimation
 from concurrent import futures
 import cv2
+import queue
 import time
 
 
 scaling_factor = 0.75
 
 
+# frame 회전 (frame, 각도)
 def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
     if degrees == 90:
         dst = cv2.transpose(src) # 행렬 변경
@@ -26,31 +28,33 @@ def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
     return dst
 
 
-def run_video(video_info, queue):
+# 동영상 frame 읽어 queue에 저장
+def read_video(video_info, face_queue, pose_queue):
     video = cv2.VideoCapture(video_info['videoPath'])
-
+    print("read_video started.")
     cnt = 0
 
     while True:
         ret, frame = video.read()
 
-        if ret:  # 영상 프레임이 있으면 실행
-
-            if cnt % 10 == 0:
-                frame = rotate(frame, 90)
-                frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
-                queue.put(frame)
-#                queue2.put(frame)
-
-            cnt = cnt + 1
-
-        else:
-            queue.put(None)
-#            queue2.put(None)
+        if not ret:
+            face_queue.put(None)
+            pose_queue.put(None)
             video.release()
             break
+        else:  # 영상 프레임이 있으면 실행
+            frame = rotate(frame, 90)
+            frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
+
+            if cnt % 60 == 0:
+                pose_queue.put(frame)
+            elif cnt % 5 == 0:
+                face_queue.put(frame)
+
+    return "read_video 끝"
 
 
+# 단순 프레임 queue 실행 함수 (확인용)
 def show_loop(queue):
     while True:
         from_queue = queue.get()
@@ -63,6 +67,7 @@ def show_loop(queue):
             cv2.waitKey(1)
 
 
+# 총점 계산 [100 - {(얼굴움직임+눈깜박임)*2}]
 def calculate_total_grade(video_info):
     face_cnt = video_info["face_move_cnt"]
     eye_cnt = video_info["blink_cnt"]
@@ -72,14 +77,16 @@ def calculate_total_grade(video_info):
     return total_grade
 
 
-def read_video(video_info):
+def do_process(video_info):
     e1 = cv2.getTickCount()
 
-    thread_list = []
+    face_queue = queue.Queue()
+    pose_queue = queue.Queue()
 
-    with futures.ThreadPoolExecutor(max_workers=2) as executor:
-        face_result = executor.submit(do_face_correction, video_info)
-        pose_result = executor.submit(do_pose_estimation, video_info)
+    with futures.ThreadPoolExecutor(max_workers=4) as executor:
+        read_video_result = executor.submit(read_video, video_info, face_queue, pose_queue)
+        face_result = executor.submit(do_face_correction, video_info, face_queue)
+        pose_result = executor.submit(do_pose_estimation, video_info, pose_queue)
 
         print("thread result", face_result.result(), pose_result.result())
 

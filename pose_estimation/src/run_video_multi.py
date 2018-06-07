@@ -1,15 +1,12 @@
 import argparse
 import logging
 import time
-from threading import Thread, Lock
 from conn_pymongo import update_swk_result
 import cv2
 
 from cal_cnt_per_5sec import check_cnt_per_5sec
 from pose_estimation.src.estimator import TfPoseEstimator
 from pose_estimation.src.networks import get_graph_path, model_wh
-
-from web_cam_video_stream import WebcamVideoStream
 
 logger = logging.getLogger('TfPoseEstimator-Video')
 logger.setLevel(logging.DEBUG)
@@ -21,28 +18,7 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
-def rotate(src, degrees):
-    if degrees == 90:
-        dst = cv2.transpose(src)  # 행렬 변경
-        dst = cv2.flip(dst, 1)  # 뒤집기
-
-    elif degrees == 180:
-        dst = cv2.flip(src, 0)  # 뒤집기
-
-    elif degrees == 270:
-        dst = cv2.transpose(src)  # 행렬 변경
-        dst = cv2.flip(dst, 0)  # 뒤집기
-    else:
-        dst = None
-    return dst
-
-
-fps_time = 0
-# update_cnt = 0
-read_cnt = 0
-
-
-def do_pose_estimation(video_info):
+def do_pose_estimation(video_info, pose_queue):
     # if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='tf-pose-estimation Video')
     parser.add_argument('--video', type=str, default='')
@@ -58,17 +34,14 @@ def do_pose_estimation(video_info):
 
     # cap = 'C:/Users/BIT-USER/Desktop/추요찡.mp4'
     # cap = 'C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4'
-    cap = video_info['videoPath']
-    vs = WebcamVideoStream(src=cap).start()
 
-    video = cv2.VideoCapture(cap)
+    video = cv2.VideoCapture(video_info['videoPath'])
     fps = video.get(cv2.CAP_PROP_FPS)
 
     # if (cap.start() == False):
     #     print("Error opening video stream or file")
 
-    ret, image = vs.read()
-    image = rotate(image, 90)
+    image = pose_queue.get()
     s_pre_L_x, s_pre_L_y, s_pre_R_x, s_pre_R_y = 0, 0, 0, 0
     s_curr_R_x, s_curr_R_y, s_curr_L_x, s_curr_L_y = 0, 0, 0, 0
     w_pre_L_x, w_pre_L_y, w_pre_R_x, w_pre_R_y = 0, 0, 0, 0
@@ -128,9 +101,9 @@ def do_pose_estimation(video_info):
     k_move_direction = [0, 0]  # 오른쪽 무릎/왼쪽 무릎
 
     while i:
-        ret, image = vs.read()
+        image = pose_queue.get()
         print("pose_ing")
-        if not ret:
+        if image is None:
             video_info['shoulder_move_cnt'] = shoulder_move_cnt
             video_info['wrist_move_cnt'] = wrist_move_cnt
             video_info['knee_move_cnt'] = knee_move_cnt
@@ -145,7 +118,6 @@ def do_pose_estimation(video_info):
 
             update_swk_result(video_info)
 
-            vs.stop()
             cv2.destroyAllWindows()
 
             e2 = cv2.getTickCount()
@@ -153,8 +125,7 @@ def do_pose_estimation(video_info):
             return 1
         else:
             # print("frame_cnt", frame_cnt)
-            frame_cnt += 1 + 10
-            image = rotate(image, 90)
+            frame_cnt += 1 + 60
             humans = e.inference(image)
             image = TfPoseEstimator.draw_humans(image, humans, imgcopy=False)
 
@@ -182,25 +153,6 @@ def do_pose_estimation(video_info):
             if 12 in humans[0].body_parts:
                 k_curr_L_x = humans[0].body_parts[12].x
                 k_curr_L_y = humans[0].body_parts[12].y
-
-            # print('R어깨x', s_pre_R_x - s_curr_R_x)
-            # print('R어깨y', s_pre_R_y - s_curr_R_y)
-            # print('L어깨x', s_pre_L_x - s_curr_L_x)
-            # print('L어깨y', s_pre_L_y - s_curr_L_y)
-            # print('R손목x', w_pre_R_x - w_curr_R_x)
-            # print('R손목y', w_pre_R_y - w_curr_R_y)
-            # print('L손목x', w_pre_L_x - w_curr_L_x)
-            # print('L손목y', w_pre_L_y - w_curr_L_y)
-            # print('R무릎x', abs(k_pre_R_x - k_curr_R_x))
-            # print('R무릎y', abs(k_pre_R_y - k_curr_R_y))
-            # print('L무릎x', abs(k_pre_L_x - k_curr_L_x))
-            # print('L무릎y', abs(k_pre_L_y - k_curr_L_y))
-
-            # cv2.putText(image,
-            #             "FPS: %f" % (1.0 / (time.time() - fps_time)),
-            #             (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-            #             (0, 255, 0), 2)
-            # cv2.imshow('tf-pose-estimation result', image)
 
             # 어깨
             if abs(s_pre_R_x - s_curr_R_x) > 0 or abs(s_pre_R_y - s_pre_R_y) > 0:
@@ -255,6 +207,26 @@ def do_pose_estimation(video_info):
                     k_move_cnt_per_5sec = check_cnt_per_5sec(k_move_cnt_per_5sec, frame_cnt, fps)
 
                     print('무릎', knee_move_cnt)
+
+            # print('R어깨x', s_pre_R_x - s_curr_R_x)
+            # print('R어깨y', s_pre_R_y - s_curr_R_y)
+            # print('L어깨x', s_pre_L_x - s_curr_L_x)
+            # print('L어깨y', s_pre_L_y - s_curr_L_y)
+            # print('R손목x', w_pre_R_x - w_curr_R_x)
+            # print('R손목y', w_pre_R_y - w_curr_R_y)
+            # print('L손목x', w_pre_L_x - w_curr_L_x)
+            # print('L손목y', w_pre_L_y - w_curr_L_y)
+            # print('R무릎x', abs(k_pre_R_x - k_curr_R_x))
+            # print('R무릎y', abs(k_pre_R_y - k_curr_R_y))
+            # print('L무릎x', abs(k_pre_L_x - k_curr_L_x))
+            # print('L무릎y', abs(k_pre_L_y - k_curr_L_y))
+
+            # cv2.putText(image,
+            #             "FPS: %f" % (1.0 / (time.time() - fps_time)),
+            #             (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+            #             (0, 255, 0), 2)
+            # cv2.imshow('tf-pose-estimation result', image)
+
             else:
                 # if chk_move == 1:
                 # end = int(ceil(frame_cnt / fps))

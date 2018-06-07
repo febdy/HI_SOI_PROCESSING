@@ -11,29 +11,7 @@ from keras.preprocessing.image import img_to_array
 from scipy.spatial import distance as dist
 
 from cal_cnt_per_5sec import check_cnt_per_5sec
-from web_cam_video_stream import WebcamVideoStream
 from conn_pymongo import update_correct_result
-
-
-scaling_factor = 0.75
-kernel = np.ones((3, 3), np.uint8)
-
-
-# frame 회전 (frame, 각도)
-def rotate(src, degrees):  # 프레임 회전 (프레임, 회전할각도)
-    if degrees == 90:
-        dst = cv2.transpose(src) # 행렬 변경
-        dst = cv2.flip(dst, 1)   # 뒤집기
-
-    elif degrees == 180:
-        dst = cv2.flip(src, 0)   # 뒤집기
-
-    elif degrees == 270:
-        dst = cv2.transpose(src) # 행렬 변경
-        dst = cv2.flip(dst, 0)   # 뒤집기
-    else:
-        dst = None
-    return dst
 
 
 # Tracker
@@ -110,7 +88,7 @@ def eye_aspect_ratio(eye):
 
 
 # 얼굴 인식 실행
-def do_face_correction(video_info):
+def do_face_correction(video_info, face_queue):
     # 얼굴 탐지
     conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/haarcascades/'
     # conda_path = 'C:/Users/BIT-USER/Anaconda3/Lib/site-packages/cv2/data/'
@@ -119,9 +97,7 @@ def do_face_correction(video_info):
     # video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4')
 
     model = load_model('face_ex.model')
-
-    video_path = video_info['videoPath']
-    vs = WebcamVideoStream(src=video_path).start()
+    kernel = np.ones((3, 3), np.uint8)
 
     video = cv2.VideoCapture(video_info['videoPath'])
     fps = video.get(cv2.CAP_PROP_FPS)  # 총 프레임 수
@@ -150,14 +126,11 @@ def do_face_correction(video_info):
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
         while True:
-            ret, frame = vs.read()
-            frame = rotate(frame, 90)
-
+            frame = face_queue.get()
             print("doing face processing..")
-            frame_cnt = frame_cnt + 1 + 10  # 드랍 프레임 수만큼 더해줌
+            frame_cnt += 1 + 5  # 드랍 프레임 수만큼 더해줌
 
-            if not ret:
-                vs.stop()
+            if frame is None:
                 cv2.destroyAllWindows()
                 print("1:: face_move_cnt : ", face_move_cnt)
 
@@ -179,7 +152,6 @@ def do_face_correction(video_info):
                 return 1
 
             else:
-                # frame = cv2.resize(frame, None, fx=scaling_factor, fy=scaling_factor, interpolation=cv2.INTER_AREA)
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 face_rects = face_cascade.detectMultiScale(gray, 1.3, 5)
 

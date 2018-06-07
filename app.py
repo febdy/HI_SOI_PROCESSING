@@ -23,7 +23,7 @@ def handle_message(video_no):
     print('received videoNo: ' + str(video_no))
 
     video_info = get_video_info(video_no)
-    result = read_video.read_video(video_info)
+    result = read_video.do_process(video_info)
     socketio.send(video_no)
 
     print("sent message to client.")
