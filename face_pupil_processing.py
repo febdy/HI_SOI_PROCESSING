@@ -91,7 +91,7 @@ def eye_aspect_ratio(eye):
 # 얼굴 인식 실행
 def do_face_correction(video_info, face_queue):
     # 얼굴 탐지
-    conda_path = 'C:/Users/feb29/Anaconda3/pkgs/opencv-3.4.1-py36_200/Library/etc/haarcascades/'
+    conda_path = 'cascade/'
     # conda_path = 'C:/Users/BIT-USER/Anaconda3/Lib/site-packages/cv2/data/'
     face_cascade = cv2.CascadeClassifier(conda_path + 'haarcascade_frontalface_default.xml')
 
