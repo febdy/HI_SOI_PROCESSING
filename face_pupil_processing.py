@@ -8,6 +8,7 @@ from imutils import face_utils
 
 from keras.models import load_model
 from keras.preprocessing.image import img_to_array
+from keras import backend as K
 from scipy.spatial import distance as dist
 
 from cal_cnt_per_5sec import check_cnt_per_5sec
@@ -96,6 +97,7 @@ def do_face_correction(video_info, face_queue):
 
     # video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4')
 
+    K.clear_session()
     model = load_model('face_ex.model')
     kernel = np.ones((3, 3), np.uint8)
 

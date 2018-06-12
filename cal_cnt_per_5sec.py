@@ -1,7 +1,7 @@
 # 5초 단위로 움직이는 횟수 구하기
 def check_cnt_per_5sec(cnt_per_5sec, frame_cnt, fps):
     sec = round(int(frame_cnt / fps))
-    print(sec, len(cnt_per_5sec))
+    print("chk_cnt_per_5sec", sec, len(cnt_per_5sec))
     i = 0
 
     if sec != 0 and sec % 5 == 0:
