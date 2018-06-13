@@ -50,6 +50,7 @@ def read_video(video_info, face_queue, pose_queue):
                 pose_queue.put(frame)
             elif cnt % 5 == 0:
                 face_queue.put(frame)
+            cnt += 1
 
     return "read_video 끝"
 

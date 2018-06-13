@@ -24,7 +24,11 @@ def handle_message(video_no):
 
     video_info = get_video_info(video_no)
     result = read_video.do_process(video_info)
-    socketio.send(video_no)
+
+    if result is not 0:
+        socketio.send(video_no)
+    else:
+        socketio.send(0)
 
     print("sent message to client.")
 
