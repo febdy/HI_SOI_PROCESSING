@@ -41,6 +41,7 @@ def do_pose_estimation(video_info, pose_queue):
     # if (cap.start() == False):
     #     print("Error opening video stream or file")
 
+    # 변수 초기화
     image = pose_queue.get()
     s_pre_L_x, s_pre_L_y, s_pre_R_x, s_pre_R_y = 0, 0, 0, 0
     s_curr_R_x, s_curr_R_y, s_curr_L_x, s_curr_L_y = 0, 0, 0, 0

@@ -49,7 +49,7 @@ def mask_array(array, imask):
     return output
 
 
-# 움직일 때 겹치는 구간 잇기
+# 움직일 때 겹치는 시간 구간 잇기
 def check_location(miss_location):
     i = 1
     ml_len = len(miss_location)
@@ -58,9 +58,9 @@ def check_location(miss_location):
         e = miss_location[i]
         next_s = miss_location[i + 1]
 
-        if (e - next_s) <= 1:
-            miss_location[i] = miss_location[i + 2]
-            miss_location.pop(i + 2)
+        if (e - next_s) <= 1:  # 끝난 시간이 다음 움직임 시작 시간보다 +1이거나 같으면
+            miss_location[i] = miss_location[i + 2]  # 다음 끝난 시간을 현재 끝난 시간으로 바꾼 뒤
+            miss_location.pop(i + 2)  # 다음 시작, 끝 시간을 지운다
             miss_location.pop(i + 1)
             i = 1
             ml_len = len(miss_location)
@@ -98,9 +98,10 @@ def do_face_correction(video_info, face_queue):
     # video = cv2.VideoCapture('C:/Users/feb29/PycharmProjects/OpenCV_Ex/HUN2.mp4')
 
     K.clear_session()
-    model = load_model('face_ex.model')
+    model = load_model('face_ex.model')  # classify에 쓰이는 데이터셋
     kernel = np.ones((3, 3), np.uint8)
 
+    # 영상 총 재생 시간 구하기 위한 변수들
     video = cv2.VideoCapture(video_info['videoPath'])
     fps = video.get(cv2.CAP_PROP_FPS)  # 총 프레임 수
 
@@ -128,11 +129,11 @@ def do_face_correction(video_info, face_queue):
         (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
         while True:
-            frame = face_queue.get()
+            frame = face_queue.get()  # face queue에서 한 장씩 가져옴
             print("doing face processing..")
             frame_cnt += 1 + 5  # 드랍 프레임 수만큼 더해줌
 
-            if frame is None:
+            if frame is None:  # queue에 들어있는 값이 None일 때 종료
                 cv2.destroyAllWindows()
                 print("1:: face_move_cnt : ", face_move_cnt)
 
@@ -142,81 +143,84 @@ def do_face_correction(video_info, face_queue):
                 miss_section = check_location(miss_location)  # 움직인 시간 구간으로 바꾸어 저장
                 video_info['miss_section'] = miss_section
 
-                video_info['blink_cnt'] = blink_cnt  # 깜빡임
-                video_info['eye_blink_cnt_per_5sec'] = eye_blink_cnt_per_5sec
+                video_info['blink_cnt'] = blink_cnt  # 깜박임
+                video_info['eye_blink_cnt_per_5sec'] = eye_blink_cnt_per_5sec  # 눈 깜박임 5초 간격 cnt
 
                 total_video_time = (video.get(cv2.CAP_PROP_FRAME_COUNT) * fps) / 1000
                 video_info['total_video_time'] = round(total_video_time)  # 비디오 총 재생 시간
-                video_info['face_move_cnt_per_5sec'] = face_move_cnt_per_5sec  # 5초 간격 cnt
-                video_info['move_direction'] = move_direction
+                video_info['face_move_cnt_per_5sec'] = face_move_cnt_per_5sec  # 얼굴 움직임 5초 간격 cnt
+                video_info['move_direction'] = move_direction  # 움직인 방향별 횟수 [상, 하, 좌, 우]
 
-                update_correct_result(video_info)
+                update_correct_result(video_info)  # MongoDB update.
                 return 1
 
             else:
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                face_rects = face_cascade.detectMultiScale(gray, 1.3, 5)
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # frame을 회색으로 만듦
+                face_rects = face_cascade.detectMultiScale(gray, 1.3, 5)  # frame에서 얼굴을 잡아냄
 
                 # print('face_move_cnt:', face_move_cnt)
 
                 if is_face is -1:  # 얼굴이 잡히지 않았을 때
                     for (x, y, w, h) in face_rects:
                         # print("얼굴안잡는중")
+                        # 얼굴 주위 상자 그리기 (frmae, 시작좌표, 끝좌표, 네모 색, 범위)
                         face_rect = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
-                        img = cv2.resize(face_rect, (28, 28))
+                        img = cv2.resize(face_rect, (28, 28))  # 얼굴 상자 사이즈 (28, 28)로 변경. 교육된 데이터셋이 (28, 28)
                         img = img.astype("float") / 255.0
                         img = img_to_array(img)
                         img = np.expand_dims(img, axis=0)
 
-                        (not_face, face) = model.predict(img)[0]
+                        (not_face, face) = model.predict(img)[0]  # 얼굴인지 아닌지 판별
 
-                        label = "face" if face > not_face else "Not face"
+                        label = "face" if face > not_face else "Not face"  # 더 높은 %인 쪽으로 label 정함
 
-                        if label == "face":
-                            bg = frame.copy()
-                            bbox = (x, y, w, h)
+                        if label == "face":  # 잡은 위치가 얼굴일 때
+                            bg = frame.copy()  # tracking을 위한 현재 frame 복사
+                            bbox = (x, y, w, h)  # 현재 얼굴 상자 좌표
                             def_x = x  # 움직임 계산할 때 기준이 되는 x, y
                             def_y = y
                             is_face = 1
-                            tracker = setup_tracker(2)
+                            tracker = setup_tracker(2)  # tracker-KCF 사용
                             tracking = tracker.init(frame, bbox)
 
                 elif is_face is 1:  # 얼굴을 잡았을 때
                     # print("얼굴잡는중")
                     diff = cv2.absdiff(bg, frame)  # 기준 프레임과 다른점을 찾음
-                    mask = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
-                    th, thresh = cv2.threshold(mask, 10, 255, cv2.THRESH_BINARY)
+                    mask = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)  # frame 회색으로 변환
+                    th, thresh = cv2.threshold(mask, 10, 255, cv2.THRESH_BINARY)  # threshold 적용
+                    # threshold - 이미지 이진화(흑백으로 나타냄)
+                    # 기준값 이하는 0(검은색), 이상은 1(흰색)
 
-                    opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)
-                    closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)
+                    opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel)  # 노이즈 제거
+                    closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)  # opening의 반대
                     img_dilation = cv2.dilate(closing, kernel, iterations=2)
                     imask = img_dilation > 0
-                    foreground = mask_array(frame, imask)
-                    foreground_display = foreground.copy()
+                    foreground = mask_array(frame, imask)  # frame에 mask 적용
+                    foreground_display = foreground.copy()  # 복사
 
-                    tracking, bbox = tracker.update(foreground)
+                    tracking, bbox = tracker.update(foreground)  # 트래킹
                     tracking = int(tracking)
 
-                    p1 = (int(bbox[0]), int(bbox[1]))
-                    p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
+                    p1 = (int(bbox[0]), int(bbox[1]))  # 트래킹 상자 시작 좌표
+                    p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))  # 트래킹 상자 끝 좌표
 
-                    if p1 == (0, 0):
-                        is_face = -1
+                    if p1 == (0, 0):  # 트래킹 상자 시작이 0,0이면 (얼굴을 못 찾으면)
+                        is_face = -1  # 다시 얼굴 찾기 시작
                         continue
 
-                    cv2.rectangle(foreground_display, p1, p2, (255, 0, 0), 2, 1)
-                    cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)
+                    cv2.rectangle(foreground_display, p1, p2, (255, 0, 0), 2, 1)  # 파란색 상자 그리기
+                    cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)  # 파란색 상자 그리기
 
                     # print('def_x:def_y', (def_x, def_y), 'p1_x:p1_y', p1)
 
                     # 감지된 얼굴 확대해서 보여주기 (눈을 못잡아서 pass)
                     detected_face = frame[int(bbox[1]):int(bbox[1] + bbox[3]), int(bbox[0]):int(bbox[0] + bbox[2])]
-                    detected_face = imutils.resize(detected_face, 3 * h, 3 * w)
+                    detected_face = imutils.resize(detected_face, 3 * h, 3 * w)  # 얼굴 잡은 영역 3배로 만들기
 
-                    frame[10: 10 + detected_face.shape[1], 10: 10 + detected_face.shape[0]] = detected_face
+                    frame[10: 10 + detected_face.shape[1], 10: 10 + detected_face.shape[0]] = detected_face  # 왼쪽 상단에 표시
 
-                    rects = detector(gray, 0)
+                    rects = detector(gray, 0)  # 눈동자 잡기 위한 frame은 gray scale이어야 함.
 
                     # loop over the face detections
                     for rect in rects:
@@ -267,15 +271,15 @@ def do_face_correction(video_info, face_queue):
                         # cv2.putText(frame, "EAR: {:.4f}".format(ear), (200, 30),
                         #             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-                    # 움직인 좌표가 4 이하면 move 검사
+                    # 움직인 좌표가 4 이상이면 얼굴 움직임 검사
                     if abs(def_x - p1[0]) > 4 or abs(def_y - p1[1]) > 4:
-                        if chk_move == 0:
-                            face_move_cnt = face_move_cnt + 1
-                            chk_move = 1
+                        if chk_move == 0:  # 이전까지 움직이지 않았을 시
+                            face_move_cnt = face_move_cnt + 1  # 움직임 횟수 +1
+                            chk_move = 1  # 움직이는 도중이라는 flag 표시
 
                             # 움직인 시작 초
                             start = int(floor(frame_cnt / fps))
-                            miss_location.append(start)
+                            miss_location.append(start)  # 움직였을 때의 시간 기록
 
                             # 5초동안 cnt
                             face_move_cnt_per_5sec = check_cnt_per_5sec(face_move_cnt_per_5sec, frame_cnt, fps)
@@ -293,11 +297,11 @@ def do_face_correction(video_info, face_queue):
                             print("frame_cnt, start::::", frame_cnt, start)
 
                     else:
-                        if chk_move == 1:
-                            end = int(ceil(frame_cnt / fps))
-                            miss_location.append(end)
+                        if chk_move == 1:  # 좌표차가 4 이하고 && 이전까지 움직이고 있었을 때
+                            end = int(ceil(frame_cnt / fps))  # 끝 시간
+                            miss_location.append(end)  # 움직임 끝난 시간 기록
                             print("frame_cnt, end::::", frame_cnt, end)
-                        chk_move = 0
+                        chk_move = 0  # 움직임 flag를 0으로.
 
             # cv2.imshow('Face Detector', frame)
             # if cv2.waitKey(1) == 27:
